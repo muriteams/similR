@@ -19,6 +19,7 @@
 \alias{Goodman-&-Kruskal}
 \alias{Anderberg}
 \alias{Peirce}
+\alias{Fscore}
 \alias{similarity.list}
 \alias{similarity.matrix}
 \title{Similarity and Distance between pairs of binary matrices}
@@ -211,6 +212,9 @@ where \eqn{\sigma}{s} and \eqn{\sigma}{s'} are defined as in (69).
      speirce = (a*b + b*c)/(a*b + 2*b*c + c*d)
    }
 }
+
+
+Ask Kyosuke Tanaka
 }
 
 \section{Distance}{

@@ -19,6 +19,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// contingency_matrix
+IntegerMatrix contingency_matrix(const IntegerMatrix& M1, const IntegerMatrix& M2);
+RcppExport SEXP _similR_contingency_matrix(SEXP M1SEXP, SEXP M2SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const IntegerMatrix& >::type M1(M1SEXP);
+    Rcpp::traits::input_parameter< const IntegerMatrix& >::type M2(M2SEXP);
+    rcpp_result_gen = Rcpp::wrap(contingency_matrix(M1, M2));
+    return rcpp_result_gen;
+END_RCPP
+}
 // reduce_dim
 IntegerMatrix reduce_dim(IntegerMatrix& x, int k);
 RcppExport SEXP _similR_reduce_dim(SEXP xSEXP, SEXP kSEXP) {
@@ -49,6 +61,7 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_similR_las", (DL_FUNC) &_similR_las, 4},
+    {"_similR_contingency_matrix", (DL_FUNC) &_similR_contingency_matrix, 2},
     {"_similR_reduce_dim", (DL_FUNC) &_similR_reduce_dim, 2},
     {"_similR_similarity", (DL_FUNC) &_similR_similarity, 5},
     {NULL, NULL, 0}

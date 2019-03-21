@@ -4,7 +4,7 @@
 #' @name las
 #' @rdname las
 #' @section Rule:
-#' When `rule = "interesection"` or `rule = "i"`, the union method is used.
+#' When `rule = "interesection"` or `rule = "i"`, the intersection method is used.
 #' A tie is marked as present iff both i and j agree on the existance if (i,j).
 NULL
 
@@ -227,6 +227,21 @@ NULL
 #'   
 #' @aliases Peirce
 NULL
+
+#' @name similarity
+#' @rdname similarity
+#' @aliases Fscore
+#' @section Similarity: 
+#' Ask Kyosuke Tanaka
+NULL
+
+#' Contingency Table
+#' @param M1,M2 Two integer matrices of the same size.
+#' @export
+#' 
+contingency_matrix <- function(M1, M2) {
+    .Call(`_similR_contingency_matrix`, M1, M2)
+}
 
 reduce_dim <- function(x, k) {
     .Call(`_similR_reduce_dim`, x, k)

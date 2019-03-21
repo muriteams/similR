@@ -34,7 +34,7 @@ Generates LAS matrices using different criteria as described in Krackhardt (1990
 }
 \section{Rule}{
 
-When \code{rule = "interesection"} or \code{rule = "i"}, the union method is used.
+When \code{rule = "interesection"} or \code{rule = "i"}, the intersection method is used.
 A tie is marked as present iff both i and j agree on the existance if (i,j).
 
 

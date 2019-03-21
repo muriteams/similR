@@ -46,6 +46,34 @@ std::vector<Ti> contingency_matrix(const Tm & M1, const Tm & M2) {
   
 }
 
+//' Contingency Table
+//' @param M1,M2 Two integer matrices of the same size.
+//' @export
+//' 
+// [[Rcpp::export]]
+IntegerMatrix contingency_matrix(
+    const IntegerMatrix & M1,
+    const IntegerMatrix & M2
+) {
+  
+  if (M1.nrow() != M2.nrow())
+    stop("Number of rows don't match.");
+  
+  if (M1.ncol() != M2.ncol())
+    stop("Number of columns don't match.");
+  
+  std::vector<double> table = contingency_matrix<double, IntegerMatrix>(M1, M2);
+  IntegerMatrix ans(2,2);
+  
+  ans(0, 0) = table[a];
+  ans(0, 1) = table[b];
+  ans(1, 0) = table[c];
+  ans(1, 1) = table[d];
+  
+  return ans;
+  
+}
+
 //' @name similarity
 //' @rdname similarity
 //' @section Similarity:
@@ -488,7 +516,26 @@ double speirce(
   
 }
 
-
+//' @name similarity
+//' @rdname similarity
+//' @aliases Fscore
+//' @section Similarity: 
+//' Ask Kyosuke Tanaka
+// F score
+double fscore(
+    const IntegerMatrix & M1,
+    const IntegerMatrix & M2,
+    bool normalized = false
+) {
+  
+  std::vector<double> table = contingency_matrix<double, IntegerMatrix>(M1, M2);
+  
+  double precision = table[a]/(table[a] + table[c]);
+  double recall    = table[a]/(table[b] + table[a]);
+  
+  return 2.0 * (precision * recall / (precision + recall));
+  
+}
 
 // -----------------------------------------------------------------------------
 
@@ -612,6 +659,7 @@ void getmetric(std::string s, funcPtr & fun) {
   else if (s == "dsd" | s == "sd")                fun = &dsd;
   else if (s == "dsphd" | s == "sphd")            fun = &dsphd;
   else if (s == "sdisp" | s == "disp")            fun = &sdisp;
+  else if (s == "fscore" | s == "Fscore")         fun = &fscore;
   else Rcpp::stop("The statistic '%s' is not defined.", s);
   
   return ;
