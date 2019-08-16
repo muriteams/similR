@@ -6,6 +6,10 @@
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/similR)](https://cran.r-project.org/package=similR)
+[![Travis build
+status](https://travis-ci.org/muriteams/similR.svg?branch=master)](https://travis-ci.org/muriteams/similR)
+[![Build
+status](https://ci.appveyor.com/api/projects/status/p0xice4ingylud9r?svg=true)](https://ci.appveyor.com/project/gvegayon/similr-adu2u)
 
 The development version from [GitHub](https://github.com/) with:
 
