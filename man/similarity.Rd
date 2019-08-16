@@ -88,7 +88,7 @@ and \strong{Distance} sections.
 
 
 \itemize{
-\item Gower & Legendre (11): \code{"sgl"} or \code{"gl"}
+\item Gower and Legendre (11): \code{"sgl"} or \code{"gl"}
 }
 
 
@@ -175,7 +175,7 @@ Which is an statistic lying between 0 and 1.
 \item Goodman & Kruskal (69): \code{"sgk"} or \code{"gk"}
 
 \deqn{%
-     S_{Goodman&Kruskal} = \frac{\sigma - \sigma'}{2n - \sigma'} 
+     S_{Goodman \& Kruskal} = \frac{\sigma - \sigma'}{2n - \sigma'} 
    }{%
      sgk = (s + s')/(2*n - s') 
    }

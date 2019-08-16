@@ -112,7 +112,7 @@ double sfaith(
 //' @name similarity
 //' @rdname similarity
 //' @section Similarity:
-//' - Gower & Legendre (11): `"sgl"` or `"gl"`
+//' - Gower and Legendre (11): `"sgl"` or `"gl"`
 //' @aliases Gower-&-Legendre
 double sgl(
     const IntegerMatrix & M1,
@@ -431,7 +431,7 @@ inline double sigma_prime(const std::vector<double> & table) {
 //' -  Goodman & Kruskal (69): `"sgk"` or `"gk"`
 //'    
 //'    \deqn{%
-//'      S_{Goodman&Kruskal} = \frac{\sigma - \sigma'}{2n - \sigma'} 
+//'      S_{Goodman \& Kruskal} = \frac{\sigma - \sigma'}{2n - \sigma'} 
 //'    }{%
 //'      sgk = (s + s')/(2*n - s') 
 //'    }

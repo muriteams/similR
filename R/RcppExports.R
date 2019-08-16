@@ -45,7 +45,7 @@ NULL
 #' @name similarity
 #' @rdname similarity
 #' @section Similarity:
-#' - Gower & Legendre (11): `"sgl"` or `"gl"`
+#' - Gower and Legendre (11): `"sgl"` or `"gl"`
 #' @aliases Gower-&-Legendre
 NULL
 
@@ -182,7 +182,7 @@ NULL
 #' -  Goodman & Kruskal (69): `"sgk"` or `"gk"`
 #'    
 #'    \deqn{%
-#'      S_{Goodman&Kruskal} = \frac{\sigma - \sigma'}{2n - \sigma'} 
+#'      S_{Goodman \& Kruskal} = \frac{\sigma - \sigma'}{2n - \sigma'} 
 #'    }{%
 #'      sgk = (s + s')/(2*n - s') 
 #'    }
