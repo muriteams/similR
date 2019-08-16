@@ -4,12 +4,13 @@ Date: 2018-09-24
 Title: Similarity and Distance metrics for binary matrices
 Description: Multiple measurements of similarity and distance between pairs of
   binary matrices as listed in Choi et al (2010).
-Depends: R (>= 3.3.0)
-Authors@R: 
-    c(person(given = "George",
-             family = "Vega Yon",
-             role = c("cre","aut"),
-             email = "g.vegayon@gmail.com"))
+Depends: R (>= 3.5.0)
+Authors@R: c(
+      person(given = "George", family = "Vega Yon", role = c("cre","aut"),
+      email = "g.vegayon@gmail.com", comment = c(ORCID = "0000-0002-3171-0844")),
+      person("Army Research Laboratory and the U.S. Army Research Office",
+      role = "fnd", comment = "Grant Number W911NF-15-1-0577")
+      )
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1
 Encoding: UTF-8
@@ -20,7 +21,11 @@ Imports:
 Suggests:
     proxy,
     knitr,
-    rmarkdown
+    rmarkdown,
+    dplyr,
+    ggplot2,
+    magrittr,
+    tidyr
 LinkingTo: 
     Rcpp
 License: MIT + file LICENSE

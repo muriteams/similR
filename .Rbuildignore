@@ -1,2 +1,10 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^\.travis\.yml$
+^appveyor\.yml$
+vignettes/.*_cache
+^data-raw$
+^README\.Rmd$
+^LICENSE\.md$
+^docs$
+^man-roxygen$

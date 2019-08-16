@@ -11,7 +11,7 @@ The development version from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("USCCANA/social-smarts/r-pkg/similR")
+devtools::install_github("USCCANA/similR")
 ```
 
 ## Example
@@ -44,10 +44,24 @@ head(similarity(powerset03[[1]], powerset03[[2]], powerset03[[3]], statistic="s1
 ans <- similarity(powerset03, statistic=c("hamming", "dennis", "jaccard"))
 head(ans)
 #>      i j   hamming     dennis   jaccard
-#> [1,] 1 2 0.1666667  1.6329932 0.0000000
-#> [2,] 1 3 0.3333333 -0.5773503 0.1666667
-#> [3,] 1 4 0.1666667  1.6329932 0.0000000
-#> [4,] 1 5 0.3333333  1.0000000 0.0000000
-#> [5,] 1 6 0.5000000 -0.8164966 0.2000000
-#> [6,] 1 7 0.3333333 -0.5773503 0.1666667
+#> [1,] 1 2 0.1666667  1.6329932 0.5000000
+#> [2,] 1 3 0.3333333 -0.5773503 0.0000000
+#> [3,] 1 4 0.1666667  1.6329932 0.5000000
+#> [4,] 1 5 0.3333333  1.0000000 0.3333333
+#> [5,] 1 6 0.5000000 -0.8164966 0.0000000
+#> [6,] 1 7 0.3333333 -0.5773503 0.0000000
+```
+
+Currently, the full list of available statistics is:
+
+``` r
+data("statistics")
+statistics
+#> $similarity
+#>  [1] "sanderberg" "sdisp"      "sfaith"     "sgk"        "sgl"       
+#>  [6] "shamann"    "sjaccard"   "smichael"   "speirce"    "sph1"      
+#> [11] "starwid"    "syuleq"     "syuleqw"   
+#> 
+#> $distance
+#> [1] "dennis"   "dhamming" "dmh"      "dsd"      "dsphd"    "dyuleq"
 ```

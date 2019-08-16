@@ -18,12 +18,15 @@ knitr::opts_chunk$set(
 
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental) 
 [![CRAN status](https://www.r-pkg.org/badges/version/similR)](https://cran.r-project.org/package=similR)
+[![Travis build status](https://travis-ci.org/USCCANA/similR.svg?branch=master)](https://travis-ci.org/USCCANA/similR)
+[![Build status](https://ci.appveyor.com/api/projects/status/p0xice4ingylud9r?svg=true)](https://ci.appveyor.com/project/gvegayon/similr-adu2u)
+
 
 The development version from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("USCCANA/social-smarts/r-pkg/similR")
+devtools::install_github("USCCANA/similR")
 ```
 ## Example
 
@@ -44,5 +47,13 @@ head(similarity(powerset03[[1]], powerset03[[2]], powerset03[[3]], statistic="s1
 ans <- similarity(powerset03, statistic=c("hamming", "dennis", "jaccard"))
 head(ans)
 
+```
+
+
+Currently, the full list of available statistics is:
+
+```{r}
+data("statistics")
+statistics
 ```
 
