@@ -23,8 +23,6 @@ knitr::opts_chunk$set(
 ```{r loading-packages, echo=FALSE, message=FALSE}
 library(ggplot2)
 library(magrittr)
-library(dplyr)
-library(tidyr)
 ```
 
 
@@ -49,9 +47,18 @@ all_cor03 <- cor(all_cor03[,-c(1,2)], use = "pairwise.complete.obs")
 ```
 
 ```{r correlation-plot-03, out.width="600px", fig.width=6, fig.height=6}
-cbind(a=rownames(all_cor03), as.data.frame(all_cor03)) %>%
-  gather(key = "b", value="corr", -a) %>%
-  ggplot(aes(x=a, y=b, fill=corr))+
+res <- cbind(a=rownames(all_cor03), as.data.frame(all_cor03))
+res <- lapply(2:ncol(res), function(i) {
+  data.frame(
+    a    = res[,1],
+    b    = colnames(res)[i],
+    corr = res[,i],
+    stringsAsFactors = FALSE
+  )
+  }) %>%
+  do.call("rbind", .)
+
+ggplot(res, aes(x=a, y=b, fill=corr))+
   scale_fill_distiller(palette = "RdBu") +
   geom_bin2d() +
   labs(fill     = "Correlation") +
@@ -65,21 +72,24 @@ cbind(a=rownames(all_cor03), as.data.frame(all_cor03)) %>%
 ```
 
 ```{r summary-stats-03}
-all03 %>%
-  as_tibble %>%
-  select(-1,-2) %>%
-  gather("Statistic", "Value") %>%
-  group_by(Statistic) %>%
-  summarize(
-    `% Miss`    = sum(!is.finite(Value))/n()*100,
-    `Variance`  = var(Value, na.rm=TRUE),
-    `Min`       = min(Value, na.rm=TRUE),
-    `Max`       = max(Value, na.rm=TRUE),
-    `p25`       = quantile(Value, .25, na.rm=TRUE),
-    `p75`       = quantile(Value, .75, na.rm=TRUE),
-    `IQR`       = p75 - p25
-  ) %>% 
-  arrange(`% Miss`, desc(`Variance`)) %>%
+lapply(3:ncol(all03), function(i) {
+
+  ans <- data.frame(
+    Statistic = colnames(all03)[i],
+    `% Miss`    = sum(!is.finite(all03[,i]))/length(all03[,i])*100,
+    `Variance`  = var(all03[,i], na.rm=TRUE),
+    `Min`       = min(all03[,i], na.rm=TRUE),
+    `Max`       = max(all03[,i], na.rm=TRUE),
+    `p25`       = quantile(all03[,i], .25, na.rm=TRUE),
+    `p75`       = quantile(all03[,i], .75, na.rm=TRUE),
+    check.names = FALSE
+  )
+  
+  ans$IQR <- with(ans, p75 - p25)
+  ans
+  
+}) %>%
+  do.call(rbind, .) %>%
   knitr::kable(digits=2)
 ```
 

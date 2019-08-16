@@ -22,10 +22,8 @@ Suggests:
     proxy,
     knitr,
     rmarkdown,
-    dplyr,
     ggplot2,
-    magrittr,
-    tidyr
+    magrittr
 LinkingTo: 
     Rcpp
 License: MIT + file LICENSE
