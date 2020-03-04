@@ -9,6 +9,7 @@
 \alias{Shape-Difference}
 \alias{Tarwid}
 \alias{Person-&-Heron}
+\alias{S14}
 \alias{Hamming}
 \alias{Mean-Manhattan}
 \alias{Dennis}
@@ -24,14 +25,32 @@
 \alias{similarity.matrix}
 \title{Similarity and Distance between pairs of binary matrices}
 \usage{
-similarity(M, ..., statistic, normalized = TRUE, firstonly = FALSE,
-  exclude_j = FALSE)
+similarity(
+  M,
+  ...,
+  statistic,
+  normalized = TRUE,
+  firstonly = FALSE,
+  exclude_j = FALSE
+)
 
-\method{similarity}{list}(M, ..., statistic, normalized = TRUE,
-  firstonly = FALSE, exclude_j = FALSE)
+\method{similarity}{list}(
+  M,
+  ...,
+  statistic,
+  normalized = TRUE,
+  firstonly = FALSE,
+  exclude_j = FALSE
+)
 
-\method{similarity}{matrix}(M, ..., statistic, normalized = TRUE,
-  firstonly = FALSE, exclude_j = FALSE)
+\method{similarity}{matrix}(
+  M,
+  ...,
+  statistic,
+  normalized = TRUE,
+  firstonly = FALSE,
+  exclude_j = FALSE
+)
 }
 \arguments{
 \item{M}{Either a list of matrices of size \code{n} (need not to be square), or

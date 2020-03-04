@@ -70,7 +70,7 @@ void get_las(lasFncPtr & f, std::string rule) {
   
 }
 
-// [[Rcpp::export(name=".las")]]
+// [[Rcpp::export(name=".las", rng = false)]]
 IntegerMatrix las(
     const ListOf< IntegerMatrix > & M,
     std::string rule,

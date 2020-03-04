@@ -12,19 +12,18 @@ Authors@R: c(
       role = "fnd", comment = "Grant Number W911NF-15-1-0577")
       )
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
 Encoding: UTF-8
 Imports: 
     stats,
     Rcpp,
     parallel
-Suggests:
+Suggests: 
     proxy,
     knitr,
     rmarkdown,
     ggplot2,
-    magrittr
-LinkingTo: 
-    Rcpp
+    magrittr, tinytest
+LinkingTo: Rcpp
 License: MIT + file LICENSE
 VignetteBuilder: knitr

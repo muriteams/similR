@@ -50,7 +50,7 @@ std::vector<Ti> contingency_matrix(const Tm & M1, const Tm & M2) {
 //' @param M1,M2 Two integer matrices of the same size.
 //' @export
 //' 
-// [[Rcpp::export]]
+// [[Rcpp::export(rng = false)]]
 IntegerMatrix contingency_matrix(
     const IntegerMatrix & M1,
     const IntegerMatrix & M2
@@ -541,7 +541,7 @@ double fscore(
 
 typedef double (*funcPtr)(const IntegerMatrix & M1, const IntegerMatrix & M2, bool normalize);
 
-// [[Rcpp::export]]
+// [[Rcpp::export(rng = false)]]
 IntegerMatrix reduce_dim(IntegerMatrix & x, int k) {
   
   // No reduction, return the same
@@ -640,32 +640,32 @@ NumericMatrix allsimilarities(
 
 void getmetric(std::string s, funcPtr & fun) {
   
-  if      (s == "sph1" | s == "ph1" | s == "s14") fun = &sph1;
-  else if (s == "dhamming" | s == "hamming")      fun = &dhamming;
-  else if (s == "dennis" | s == "sdennis")        fun = &sdennis;
-  else if (s == "starwid" | s == "tarwid")        fun = &starwid;
+  if      ((s == "sph1") | (s == "ph1") | (s == "s14")) fun = &sph1;
+  else if ((s == "dhamming") | (s == "hamming"))      fun = &dhamming;
+  else if ((s == "dennis") | (s == "sdennis"))        fun = &sdennis;
+  else if ((s == "starwid") | (s == "tarwid"))        fun = &starwid;
   else if (s == "syuleq")                         fun = &syuleq;
   else if (s == "syuleqw")                        fun = &syuleqw;
   else if (s == "dyuleq")                         fun = &dyuleq;
-  else if (s == "smichael" | s == "michael")      fun = &smichael;
-  else if (s == "speirce" | s == "peirce")        fun = &speirce;
-  else if (s == "sjaccard" | s == "jaccard")      fun = &sjaccard;
-  else if (s == "sgk" | s == "gyk")               fun = &sgk;
-  else if (s == "sanderberg" | s == "anderberg")  fun = &sanderberg;
-  else if (s == "shamann" | s == "hamann")        fun = &shamann;
-  else if (s == "dmh" | s == "mh")                fun = &dmh;
-  else if (s == "sfaith" | s == "faith")          fun = &sfaith;
-  else if (s == "sgl" | s == "gl")                fun = &sgl;
-  else if (s == "dsd" | s == "sd")                fun = &dsd;
-  else if (s == "dsphd" | s == "sphd")            fun = &dsphd;
-  else if (s == "sdisp" | s == "disp")            fun = &sdisp;
-  else if (s == "fscore" | s == "Fscore")         fun = &fscore;
+  else if ((s == "smichael") | (s == "michael"))      fun = &smichael;
+  else if ((s == "speirce") | (s == "peirce"))        fun = &speirce;
+  else if ((s == "sjaccard") | (s == "jaccard"))      fun = &sjaccard;
+  else if ((s == "sgk") | (s == "gyk"))               fun = &sgk;
+  else if ((s == "sanderberg") | (s == "anderberg"))  fun = &sanderberg;
+  else if ((s == "shamann") | (s == "hamann"))        fun = &shamann;
+  else if ((s == "dmh") | (s == "mh"))                fun = &dmh;
+  else if ((s == "sfaith") | (s == "faith"))          fun = &sfaith;
+  else if ((s == "sgl") | (s == "gl"))                fun = &sgl;
+  else if ((s == "dsd") | (s == "sd"))                fun = &dsd;
+  else if ((s == "dsphd") | (s == "sphd"))            fun = &dsphd;
+  else if ((s == "sdisp") | (s == "disp"))            fun = &sdisp;
+  else if ((s == "fscore") | (s == "Fscore"))         fun = &fscore;
   else Rcpp::stop("The statistic '%s' is not defined.", s);
   
   return ;
 }
 
-// [[Rcpp::export(name=".similarity")]]
+// [[Rcpp::export(name=".similarity", rng = false)]]
 NumericMatrix similarity(
     const ListOf<IntegerMatrix> & M,
     const std::string & statistic,

@@ -10,7 +10,6 @@ IntegerMatrix las(const ListOf< IntegerMatrix >& M, std::string rule, double thr
 RcppExport SEXP _similR_las(SEXP MSEXP, SEXP ruleSEXP, SEXP thresholdSEXP, SEXP selfSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const ListOf< IntegerMatrix >& >::type M(MSEXP);
     Rcpp::traits::input_parameter< std::string >::type rule(ruleSEXP);
     Rcpp::traits::input_parameter< double >::type threshold(thresholdSEXP);
@@ -24,7 +23,6 @@ IntegerMatrix contingency_matrix(const IntegerMatrix& M1, const IntegerMatrix& M
 RcppExport SEXP _similR_contingency_matrix(SEXP M1SEXP, SEXP M2SEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const IntegerMatrix& >::type M1(M1SEXP);
     Rcpp::traits::input_parameter< const IntegerMatrix& >::type M2(M2SEXP);
     rcpp_result_gen = Rcpp::wrap(contingency_matrix(M1, M2));
@@ -36,7 +34,6 @@ IntegerMatrix reduce_dim(IntegerMatrix& x, int k);
 RcppExport SEXP _similR_reduce_dim(SEXP xSEXP, SEXP kSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< IntegerMatrix& >::type x(xSEXP);
     Rcpp::traits::input_parameter< int >::type k(kSEXP);
     rcpp_result_gen = Rcpp::wrap(reduce_dim(x, k));
@@ -48,7 +45,6 @@ NumericMatrix similarity(const ListOf<IntegerMatrix>& M, const std::string& stat
 RcppExport SEXP _similR_similarity(SEXP MSEXP, SEXP statisticSEXP, SEXP normalizedSEXP, SEXP firstonlySEXP, SEXP exclude_jSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const ListOf<IntegerMatrix>& >::type M(MSEXP);
     Rcpp::traits::input_parameter< const std::string& >::type statistic(statisticSEXP);
     Rcpp::traits::input_parameter< bool >::type normalized(normalizedSEXP);
