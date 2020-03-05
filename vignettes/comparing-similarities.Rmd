@@ -28,7 +28,8 @@ library(magrittr)
 
 ```{r loading-data}
 library(similR)
-data("powerset03")
+data("powerset04")
+powerset03 <- powerset04
 data("statistics")
 ```
 

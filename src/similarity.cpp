@@ -1,4 +1,8 @@
 #include <Rcpp.h>
+#include "pairhasher.h"
+
+struct Coords;
+
 using namespace Rcpp;
 
 #define a 0
@@ -523,14 +527,11 @@ double speirce(
 //' Ask Kyosuke Tanaka
 // F score
 double fscore(
-    const IntegerMatrix & M1,
-    const IntegerMatrix & M2,
+    const IntegerMatrix & table,
     bool normalized = false
 ) {
   
-  std::vector<double> table = contingency_matrix<double, IntegerMatrix>(M1, M2);
-  
-  double precision = table[a]/(table[a] + table[c]);
+    double precision = table[a]/(table[a] + table[c]);
   double recall    = table[a]/(table[b] + table[a]);
   
   return 2.0 * (precision * recall / (precision + recall));
@@ -539,7 +540,7 @@ double fscore(
 
 // -----------------------------------------------------------------------------
 
-typedef double (*funcPtr)(const IntegerMatrix & M1, const IntegerMatrix & M2, bool normalize);
+typedef double (*funcPtr)(std::vector<double> & table, bool normalize);
 
 // [[Rcpp::export(rng = false)]]
 IntegerMatrix reduce_dim(IntegerMatrix & x, int k) {
@@ -599,23 +600,37 @@ NumericMatrix allsimilarities(
   NumericVector I(NN),J(NN);
   
   int pos = 0;
-
+  
+  std::unordered_map< Coords, std::vector< double >, PairHasher> matrices;
+  std::vector< double > table;
   int firstloop = firstonly ? 1 : N;  
   if (exclude_j) {
     
     for (int i = 0; i < firstloop; ++i) 
       for (int j = i; j < N; ++j) {
         
-        // Getting the pointers
-        IntegerMatrix Mi = M[i];
-        IntegerMatrix Mj = M[j];
+        // Figuring out if we need to recalculate it
+        Coords coords = {i, j};
+        if (matrices.count(coords) == 0) {
+          
+          // Getting the pointers
+          IntegerMatrix Mi = M[i];
+          IntegerMatrix Mj = M[j];
+         
+         table = contingency_matrix<double, IntegerMatrix>(
+            reduce_dim(Mi, j), reduce_dim(Mj, j)
+          );
+         
+         matrices[coords] = table;
+        } else {
+          table = matrices[coords];
+        }
         
         if (i == j) continue;
         else {
           I[pos] = i + 1;
           J[pos] = j + 1;
-          ans[pos++] =
-            fun(reduce_dim(Mi, j), reduce_dim(Mj, j), normalized);
+          ans[pos++] = fun(table, normalized);
         }
         
       }
@@ -628,7 +643,9 @@ NumericMatrix allsimilarities(
         else {
           I[pos] = i + 1;
           J[pos] = j + 1;
-          ans[pos++] = fun(M[i], M[j], normalized);
+          std::vector< double > table = 
+            contingency_matrix<double, IntegerMatrix>(M[i], M[j]);
+          ans[pos++] = fun(table, normalized);
         }
     }
     
@@ -641,25 +658,25 @@ NumericMatrix allsimilarities(
 void getmetric(std::string s, funcPtr & fun) {
   
   if      ((s == "sph1") | (s == "ph1") | (s == "s14")) fun = &sph1;
-  else if ((s == "dhamming") | (s == "hamming"))      fun = &dhamming;
-  else if ((s == "dennis") | (s == "sdennis"))        fun = &sdennis;
-  else if ((s == "starwid") | (s == "tarwid"))        fun = &starwid;
-  else if (s == "syuleq")                         fun = &syuleq;
-  else if (s == "syuleqw")                        fun = &syuleqw;
-  else if (s == "dyuleq")                         fun = &dyuleq;
-  else if ((s == "smichael") | (s == "michael"))      fun = &smichael;
-  else if ((s == "speirce") | (s == "peirce"))        fun = &speirce;
-  else if ((s == "sjaccard") | (s == "jaccard"))      fun = &sjaccard;
-  else if ((s == "sgk") | (s == "gyk"))               fun = &sgk;
-  else if ((s == "sanderberg") | (s == "anderberg"))  fun = &sanderberg;
-  else if ((s == "shamann") | (s == "hamann"))        fun = &shamann;
-  else if ((s == "dmh") | (s == "mh"))                fun = &dmh;
-  else if ((s == "sfaith") | (s == "faith"))          fun = &sfaith;
-  else if ((s == "sgl") | (s == "gl"))                fun = &sgl;
-  else if ((s == "dsd") | (s == "sd"))                fun = &dsd;
-  else if ((s == "dsphd") | (s == "sphd"))            fun = &dsphd;
-  else if ((s == "sdisp") | (s == "disp"))            fun = &sdisp;
-  else if ((s == "fscore") | (s == "Fscore"))         fun = &fscore;
+  else if ((s == "dhamming") | (s == "hamming"))        fun = &dhamming;
+  else if ((s == "dennis") | (s == "sdennis"))          fun = &sdennis;
+  else if ((s == "starwid") | (s == "tarwid"))          fun = &starwid;
+  else if (s == "syuleq")                               fun = &syuleq;
+  else if (s == "syuleqw")                              fun = &syuleqw;
+  else if (s == "dyuleq")                               fun = &dyuleq;
+  else if ((s == "smichael") | (s == "michael"))        fun = &smichael;
+  else if ((s == "speirce") | (s == "peirce"))          fun = &speirce;
+  else if ((s == "sjaccard") | (s == "jaccard"))        fun = &sjaccard;
+  else if ((s == "sgk") | (s == "gyk"))                 fun = &sgk;
+  else if ((s == "sanderberg") | (s == "anderberg"))    fun = &sanderberg;
+  else if ((s == "shamann") | (s == "hamann"))          fun = &shamann;
+  else if ((s == "dmh") | (s == "mh"))                  fun = &dmh;
+  else if ((s == "sfaith") | (s == "faith"))            fun = &sfaith;
+  else if ((s == "sgl") | (s == "gl"))                  fun = &sgl;
+  else if ((s == "dsd") | (s == "sd"))                  fun = &dsd;
+  else if ((s == "dsphd") | (s == "sphd"))              fun = &dsphd;
+  else if ((s == "sdisp") | (s == "disp"))              fun = &sdisp;
+  else if ((s == "fscore") | (s == "Fscore"))           fun = &fscore;
   else Rcpp::stop("The statistic '%s' is not defined.", s);
   
   return ;
