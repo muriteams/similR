@@ -4,7 +4,7 @@
 \alias{contingency_matrix}
 \title{Contingency Table}
 \usage{
-contingency_matrix(M1, M2)
+contingency_matrix(M1, M2, include_self, exclude)
 }
 \arguments{
 \item{M1, M2}{Two integer matrices of the same size.}

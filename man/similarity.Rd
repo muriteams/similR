@@ -31,7 +31,10 @@ similarity(
   statistic,
   normalized = TRUE,
   firstonly = FALSE,
-  exclude_j = FALSE
+  include_self = FALSE,
+  exclude_j = FALSE,
+  ncores = 1L,
+  cl = NULL
 )
 
 \method{similarity}{list}(
@@ -40,7 +43,10 @@ similarity(
   statistic,
   normalized = TRUE,
   firstonly = FALSE,
-  exclude_j = FALSE
+  include_self = FALSE,
+  exclude_j = FALSE,
+  ncores = 1L,
+  cl = NULL
 )
 
 \method{similarity}{matrix}(
@@ -49,7 +55,10 @@ similarity(
   statistic,
   normalized = TRUE,
   firstonly = FALSE,
-  exclude_j = FALSE
+  include_self = FALSE,
+  exclude_j = FALSE,
+  ncores = 1L,
+  cl = NULL
 )
 }
 \arguments{
@@ -66,8 +75,15 @@ which ranges between 0 and 1 (currently only used in \code{statistic="hamming"})
 \item{firstonly}{Logical. When \code{TRUE}, the comparison is done as the first
 matrix to all only.}
 
+\item{include_self}{Logical. When set to \code{TRUE}, the diagonal is considered
+in the calculations. Since most calculations are done in the context of social
+networks, the default is set to \code{FALE}.}
+
 \item{exclude_j}{Logical. When \code{TRUE}, the comparison between matrices \code{i} and
 \code{j} is done after the jth column and rows are removed from each.}
+
+\item{ncores, cl}{If specified, calculations are done in parallel using
+\code{\link[parallel:parLapply]{parallel::parLapply()}} (currently ignored).}
 }
 \value{
 A matrix of size \code{n*(n - 1)/2} by \code{length(statistic)}, where columns

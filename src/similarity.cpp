@@ -6,10 +6,26 @@ using namespace Rcpp;
 #define c 2
 #define d 3
 
+template<typename T>
+void vecprint(const std::vector< T > & x) {
+  std::cout << "Here is a vector of length " << x.size() << "\n";
+  for (int i = 0; i < x.size(); ++i)
+    std::cout << x[i] << "\n";
+  
+  return;
+  
+}
+
 typedef std::vector< int > vecint;
 
 template<typename Ti, typename Tm> inline
-void contingency_matrix(std::vector<Ti> & table, const Tm & M1, const Tm & M2) {
+void contingency_matrix(
+    std::vector<Ti> & table,
+    const Tm & M1,
+    const Tm & M2,
+    bool include_self,
+    const vecint & exclude
+  ) {
   
   // Catching error
   if ((M1.ncol() != M2.ncol()) | (M1.nrow() != M2.nrow())) 
@@ -23,24 +39,46 @@ void contingency_matrix(std::vector<Ti> & table, const Tm & M1, const Tm & M2) {
   int n = M1.nrow();
   int m = M1.ncol();
   
-  for (int i = 0; i < n; ++i)
-    for (int j = 0; j < m; ++j)
-      if (i == j) continue;
-      else {
-        if ((M1(i,j) == M2(i,j)) & (M1(i,j) == 1)) table[a]++;
-        else if ((M1(i,j) != M2(i,j)) & (M1(i,j) == 1)) table[b]++;
-        else if ((M1(i,j) != M2(i,j)) & (M1(i,j) == 0)) table[c]++;
-        else if ((M1(i,j) == M2(i,j)) & (M1(i,j) == 0)) table[d]++;
-      }
+  // Set minus
+  std::vector< int > rowidx(0); rowidx.reserve(n - exclude.size());
+  std::vector< int > colidx(0); colidx.reserve(m - exclude.size());
   
+  for (int i = 0; i < n; ++i) {
+    if (std::find(exclude.begin(), exclude.end(), i) == exclude.end())
+      rowidx.push_back(i);
+  }
+  
+  for (int i = 0; i < m; ++i) {
+    if (std::find(exclude.begin(), exclude.end(), i) == exclude.end())
+      colidx.push_back(i);
+  }
+
+  for (auto i = rowidx.begin(); i != rowidx.end(); ++i) {
+    
+    for (auto j = colidx.begin(); j != colidx.end(); ++j) {
+      
+      if (!include_self && *i == *j)
+        continue;
+      
+      else {
+        if ((M1(*i, *j) == M2(*i, *j)) & (M1(*i, *j) == 1)) table[a]++;
+        else if ((M1(*i, *j) != M2(*i, *j)) & (M1(*i, *j) == 1)) table[b]++;
+        else if ((M1(*i, *j) != M2(*i, *j)) & (M1(*i, *j) == 0)) table[c]++;
+        else if ((M1(*i, *j) == M2(*i, *j)) & (M1(*i, *j) == 0)) table[d]++;
+      }
+      
+    }
+  }
 }
 
 
 template<typename Ti, typename Tm> inline
-std::vector<Ti> contingency_matrix(const Tm & M1, const Tm & M2) {
+std::vector<Ti> contingency_matrix(
+    const Tm & M1, const Tm & M2, bool include_self, const vecint & exclude
+  ) {
   
   std::vector<Ti> table(4);
-  contingency_matrix< Ti, Tm >(table, M1, M2);
+  contingency_matrix< Ti, Tm >(table, M1, M2, include_self, exclude);
   
   return table;
   
@@ -53,7 +91,9 @@ std::vector<Ti> contingency_matrix(const Tm & M1, const Tm & M2) {
 // [[Rcpp::export(rng = false)]]
 IntegerMatrix contingency_matrix(
     const IntegerMatrix & M1,
-    const IntegerMatrix & M2
+    const IntegerMatrix & M2,
+    bool include_self,
+    const std::vector< int > & exclude
 ) {
   
   if (M1.nrow() != M2.nrow())
@@ -62,7 +102,10 @@ IntegerMatrix contingency_matrix(
   if (M1.ncol() != M2.ncol())
     stop("Number of columns don't match.");
   
-  std::vector<double> table = contingency_matrix<double, IntegerMatrix>(M1, M2);
+  std::vector<double> table = contingency_matrix<double, IntegerMatrix>(
+    M1, M2, include_self, exclude
+    );
+  
   IntegerMatrix ans(2,2);
   
   ans(0, 0) = table[a];
@@ -82,10 +125,12 @@ IntegerMatrix contingency_matrix(
 double sjaccard(
     const IntegerMatrix & M1,
     const IntegerMatrix & M2,
-    bool normalize = false
+    const vecint & exclude,
+    bool include_self = false,
+    bool normalized = false
 ) {
   
-  std::vector<double> table = contingency_matrix<double, IntegerMatrix>(M1, M2);
+  std::vector<double> table = contingency_matrix<double, IntegerMatrix>(M1, M2, include_self, exclude);
   
   return table[a]/(table[a] + table[b] + table[c]);
   
@@ -100,10 +145,12 @@ double sjaccard(
 double sfaith(
     const IntegerMatrix & M1,
     const IntegerMatrix & M2,
-    bool normalize = false
+    const vecint & exclude,
+    bool include_self = false,
+    bool normalized = false
 ) {
   
-  std::vector<double> table = contingency_matrix<double, IntegerMatrix>(M1, M2);
+  std::vector<double> table = contingency_matrix<double, IntegerMatrix>(M1, M2, include_self, exclude);
   
   return (table[a] + table[d]*0.5)/(table[a] + table[b] + table[c] + table[d]);
   
@@ -117,10 +164,12 @@ double sfaith(
 double sgl(
     const IntegerMatrix & M1,
     const IntegerMatrix & M2,
-    bool normalize = false
+    const vecint & exclude,
+    bool include_self = false,
+    bool normalized = false
 ) {
   
-  std::vector<double> table = contingency_matrix<double, IntegerMatrix>(M1, M2);
+  std::vector<double> table = contingency_matrix<double, IntegerMatrix>(M1, M2, include_self, exclude);
   
   return (table[a] + table[d])/(table[a] + 0.5*(table[b] + table[c]) + table[d]);
   
@@ -134,10 +183,12 @@ double sgl(
 double dsd(
     const IntegerMatrix & M1,
     const IntegerMatrix & M2,
-    bool normalize = false
+    const vecint & exclude,
+    bool include_self = false,
+    bool normalized = false
 ) {
   
-  std::vector<double> table = contingency_matrix<double, IntegerMatrix>(M1, M2);
+  std::vector<double> table = contingency_matrix<double, IntegerMatrix>(M1, M2, include_self, exclude);
   
   return pow(table[b] + table[c], 2.0)/
     pow(table[a] + table[b] + table[c] + table[d], 2.0);
@@ -152,10 +203,12 @@ double dsd(
 double dsphd(
     const IntegerMatrix & M1,
     const IntegerMatrix & M2,
-    bool normalize = false
+    const vecint & exclude,
+    bool include_self = false,
+    bool normalized = false
 ) {
   
-  std::vector<double> table = contingency_matrix<double, IntegerMatrix>(M1, M2);
+  std::vector<double> table = contingency_matrix<double, IntegerMatrix>(M1, M2, include_self, exclude);
   
   return (((double) M1.nrow())*(table[b] + table[c]) - pow(table[b] - table[c], 2.0))/
     pow(table[a] + table[b] + table[c] + table[d], 2.0);
@@ -168,13 +221,15 @@ double dsphd(
 //' - Tarwid (54): `"starwid"` or `"tarwid"`.
 //' @aliases Tarwid
 double starwid(
-    const IntegerMatrix & R1,
-    const IntegerMatrix & R2,
+    const IntegerMatrix & M1,
+    const IntegerMatrix & M2,
+    const vecint & exclude,
+    bool include_self = false,
     bool normalized = false
   ) {
   
-  std::vector<double> table = contingency_matrix<double, IntegerMatrix>(R1, R2);
-  int n = R1.nrow();
+  std::vector<double> table = contingency_matrix<double, IntegerMatrix>(M1, M2, include_self, exclude);
+  int n = M1.nrow();
   return (n*table[a] - (table[a] + table[b])*(table[a] + table[c]))/
           (n*table[a] + (table[a] + table[b])*(table[a] + table[c]));
   
@@ -199,12 +254,16 @@ double starwid(
 //' @aliases Person-&-Heron
 //' @aliases S14
 double sph1(
-    const IntegerMatrix & R1,
-    const IntegerMatrix & R2,
+    const IntegerMatrix & M1,
+    const IntegerMatrix & M2,
+    const vecint & exclude,
+    bool include_self = false,
     bool normalized = false
   ) {
   
-  std::vector<double> table = contingency_matrix<double, IntegerMatrix>(R1, R2);
+  std::vector<double> table = contingency_matrix<double, IntegerMatrix>(M1, M2, include_self, exclude);
+  
+  // std::cout << table[a] << table[b] << table[c] << "\n";
   
   return (table[a]*table[d] - table[b]*table[c])/
     sqrt((table[a] + table[b])*(table[a] + table[c])*(table[b] + table[d])*(table[c] + table[d]));
@@ -219,6 +278,8 @@ double sph1(
 double dhamming(
     const IntegerMatrix & R1,
     const IntegerMatrix & R2,
+    const vecint & exclude,
+    bool include_self = false,
     bool normalized = false
   ) {
   
@@ -256,10 +317,12 @@ double dhamming(
 double dmh(
     const IntegerMatrix & M1,
     const IntegerMatrix & M2,
+    const vecint & exclude,
+    bool include_self = false,
     bool normalized = false
 ) {
   
-  std::vector<double> table = contingency_matrix<double, IntegerMatrix>(M1, M2);
+  std::vector<double> table = contingency_matrix<double, IntegerMatrix>(M1, M2, include_self, exclude);
   
   return (table[b]+table[c])/
     (table[a] + table[b] + table[c] + table[d]);
@@ -274,10 +337,12 @@ double dmh(
 double sdennis(
     const IntegerMatrix & M1,
     const IntegerMatrix & M2,
+    const vecint & exclude,
+    bool include_self = false,
     bool normalized = false
 ) {
   
-  std::vector<double> table = contingency_matrix<double, IntegerMatrix>(M1, M2);
+  std::vector<double> table = contingency_matrix<double, IntegerMatrix>(M1, M2, include_self, exclude);
   
   double n = (double) M1.nrow();
   
@@ -294,10 +359,12 @@ double sdennis(
 double syuleq(
     const IntegerMatrix & M1,
     const IntegerMatrix & M2,
+    const vecint & exclude,
+    bool include_self = false,
     bool normalized = false
 ) {
   
-  std::vector<double> table = contingency_matrix<double, IntegerMatrix>(M1, M2);
+  std::vector<double> table = contingency_matrix<double, IntegerMatrix>(M1, M2, include_self, exclude);
   
   return (table[a]*table[d] - table[b]*table[c])/(table[a]*table[d] + table[b]*table[c]);
   
@@ -311,10 +378,12 @@ double syuleq(
 double syuleqw(
     const IntegerMatrix & M1,
     const IntegerMatrix & M2,
+    const vecint & exclude,
+    bool include_self = false,
     bool normalized = false
 ) {
   
-  std::vector<double> table = contingency_matrix<double, IntegerMatrix>(M1, M2);
+  std::vector<double> table = contingency_matrix<double, IntegerMatrix>(M1, M2, include_self, exclude);
   
   return (sqrt(table[a]*table[d]) - sqrt(table[b]*table[c]))/
     (sqrt(table[a]*table[d]) + sqrt(table[b]*table[c]));
@@ -329,10 +398,12 @@ double syuleqw(
 double dyuleq(
   const IntegerMatrix & M1,
   const IntegerMatrix & M2,
+  const vecint & exclude,
+  bool include_self = false,
   bool normalized = false
 ) {
   
-  std::vector<double> table = contingency_matrix<double, IntegerMatrix>(M1, M2);
+  std::vector<double> table = contingency_matrix<double, IntegerMatrix>(M1, M2, include_self, exclude);
   
   return 2.0*table[b]*table[c]/(table[a]*table[d] + table[b]*table[c]);
   
@@ -352,10 +423,12 @@ double dyuleq(
 double smichael(
   const IntegerMatrix & M1,
   const IntegerMatrix & M2,
+  const vecint & exclude,
+  bool include_self = false,
   bool normalized = false
 ) {
   
-  std::vector<double> table = contingency_matrix<double, IntegerMatrix>(M1, M2);
+  std::vector<double> table = contingency_matrix<double, IntegerMatrix>(M1, M2, include_self, exclude);
   
   return 4.0*(table[a]*table[d] - table[b]*table[c])/
     (pow(table[a] + table[d], 2.0) + pow(table[b] + table[c], 2.0));
@@ -375,10 +448,12 @@ double smichael(
 double sdisp(
     const IntegerMatrix & M1,
     const IntegerMatrix & M2,
+    const vecint & exclude,
+    bool include_self = false,
     bool normalized = false
 ) {
   
-  std::vector<double> table = contingency_matrix<double, IntegerMatrix>(M1, M2);
+  std::vector<double> table = contingency_matrix<double, IntegerMatrix>(M1, M2, include_self, exclude);
   
   return (table[a]*table[d] - table[b] * table[c])/
     pow(table[a] + table[b] + table[c] + table[d], 2.0);
@@ -400,10 +475,12 @@ double sdisp(
 double shamann(
     const IntegerMatrix & M1,
     const IntegerMatrix & M2,
+    const vecint & exclude,
+    bool include_self = false,
     bool normalized = false
 ) {
   
-  std::vector<double> table = contingency_matrix<double, IntegerMatrix>(M1, M2);
+  std::vector<double> table = contingency_matrix<double, IntegerMatrix>(M1, M2, include_self, exclude);
   
   return ((table[a] + table[d]) - (table[b] - table[c]))/
     (table[a] + table[b] + table[c] + table[d]);
@@ -448,10 +525,12 @@ inline double sigma_prime(const std::vector<double> & table) {
 double sgk(
     const IntegerMatrix & M1,
     const IntegerMatrix & M2,
+    const vecint & exclude,
+    bool include_self = false,
     bool normalized = false
 ) {
   
-  std::vector<double> table = contingency_matrix<double, IntegerMatrix>(M1, M2);
+  std::vector<double> table = contingency_matrix<double, IntegerMatrix>(M1, M2, include_self, exclude);
   double s = sigma(table);
   double s_prime = sigma_prime(table);
   
@@ -476,10 +555,12 @@ double sgk(
 double sanderberg(
     const IntegerMatrix & M1,
     const IntegerMatrix & M2,
+    const vecint & exclude,
+    bool include_self = false,
     bool normalized = false
 ) {
   
-  std::vector<double> table = contingency_matrix<double, IntegerMatrix>(M1, M2);
+  std::vector<double> table = contingency_matrix<double, IntegerMatrix>(M1, M2, include_self, exclude);
   double s = sigma(table);
   double s_prime = sigma_prime(table);
   
@@ -506,10 +587,12 @@ double sanderberg(
 double speirce(
   const IntegerMatrix & M1,
   const IntegerMatrix & M2,
+  const vecint & exclude,
+  bool include_self = false,
   bool normalized = false
 ) {
   
-  std::vector<double> table = contingency_matrix<double, IntegerMatrix>(M1, M2);
+  std::vector<double> table = contingency_matrix<double, IntegerMatrix>(M1, M2, include_self, exclude);
   
   return (table[a]*table[b] + table[b]*table[c])/
     (table[a]*table[b] + 2*table[b]*table[c] + table[c]*table[d]);
@@ -525,10 +608,12 @@ double speirce(
 double fscore(
     const IntegerMatrix & M1,
     const IntegerMatrix & M2,
+    const vecint & exclude,
+    bool include_self = false,
     bool normalized = false
 ) {
   
-  std::vector<double> table = contingency_matrix<double, IntegerMatrix>(M1, M2);
+  std::vector<double> table = contingency_matrix<double, IntegerMatrix>(M1, M2, include_self, exclude);
   
   double precision = table[a]/(table[a] + table[c]);
   double recall    = table[a]/(table[b] + table[a]);
@@ -539,7 +624,13 @@ double fscore(
 
 // -----------------------------------------------------------------------------
 
-typedef double (*funcPtr)(const IntegerMatrix & M1, const IntegerMatrix & M2, bool normalize);
+typedef double (*funcPtr)(
+    const IntegerMatrix & M1,
+    const IntegerMatrix & M2,
+    const vecint & exclude,
+    bool include_self,
+    bool normalized
+  );
 
 // [[Rcpp::export(rng = false)]]
 IntegerMatrix reduce_dim(IntegerMatrix & x, int k) {
@@ -583,61 +674,6 @@ IntegerMatrix reduce_dim(IntegerMatrix & x, int k) {
   
 }
 
-// Applies whatever similarity/distance metric should be applying to all the
-// requested combinations
-NumericMatrix allsimilarities(
-    const ListOf<IntegerMatrix> & M,
-    bool normalized = false,
-    funcPtr fun     = NULL,
-    bool firstonly  = false,
-    bool exclude_j    = false
-) {
-  
-  int N  = M.size();
-  int NN = firstonly? N-1 : N*(N-1)/2;
-  NumericVector ans(NN);
-  NumericVector I(NN),J(NN);
-  
-  int pos = 0;
-
-  int firstloop = firstonly ? 1 : N;  
-  if (exclude_j) {
-    
-    for (int i = 0; i < firstloop; ++i) 
-      for (int j = i; j < N; ++j) {
-        
-        // Getting the pointers
-        IntegerMatrix Mi = M[i];
-        IntegerMatrix Mj = M[j];
-        
-        if (i == j) continue;
-        else {
-          I[pos] = i + 1;
-          J[pos] = j + 1;
-          ans[pos++] =
-            fun(reduce_dim(Mi, j), reduce_dim(Mj, j), normalized);
-        }
-        
-      }
-        
-  } else {
-    
-    for (int i = 0; i < firstloop; ++i) {
-      for (int j = i; j < N; ++j)
-        if (i == j) continue;
-        else {
-          I[pos] = i + 1;
-          J[pos] = j + 1;
-          ans[pos++] = fun(M[i], M[j], normalized);
-        }
-    }
-    
-  }
-      
-  return cbind(I,J,ans);
-      
-}
-
 void getmetric(std::string s, funcPtr & fun) {
   
   if      ((s == "sph1") | (s == "ph1") | (s == "s14")) fun = &sph1;
@@ -665,21 +701,82 @@ void getmetric(std::string s, funcPtr & fun) {
   return ;
 }
 
+// Applies whatever similarity/distance metric should be applying to all the
+// requested combinations
 // [[Rcpp::export(name=".similarity", rng = false)]]
 NumericMatrix similarity(
     const ListOf<IntegerMatrix> & M,
-    const std::string & statistic,
-    bool normalized = false,
-    bool firstonly  = false,
-    bool exclude_j  = false
-  ) {
+    const std::vector< std::string > & statistic,
+    bool normalized   = false,
+    bool firstonly    = false,
+    bool include_self = false,
+    bool exclude_j    = false
+) {
   
-  funcPtr fun;
-  getmetric(statistic, fun);
+  int N  = M.size();
+  int NN = firstonly? N-1 : N*(N-1)/2;
+  int nfuns = statistic.size();
+  NumericVector ans(NN * nfuns);
+  NumericVector I(NN * nfuns),J(NN * nfuns),S(NN * nfuns);
   
-  return allsimilarities(M, normalized, fun, firstonly, exclude_j);
+  int pos = 0;
+  
+  std::vector< int > exclude(0u);
+  
+  int firstloop = firstonly ? 1 : N;  
+  
+  if (exclude_j)
+    exclude.push_back(0);
+  
+  for (int i = 0; i < firstloop; ++i) {
+    for (int j = i; j < N; ++j) {
+      
+      if (exclude_j)
+        exclude[0] = j;
+      
+      // Getting the pointers
+      IntegerMatrix Mi = M[i];
+      IntegerMatrix Mj = M[j];
+      
+      if (i == j)
+        continue;
+      int s = 0;
+      for (auto fname = statistic.begin(); fname != statistic.end(); ++fname) {
+        
+        // Getting the function
+        funcPtr fun;
+        getmetric(*fname, fun);
+      
+        I[pos] = i + 1;
+        J[pos] = j + 1;
+        S[pos] = s++;
+        ans[pos++] = fun(M[i], M[j], exclude, include_self, normalized);
+      }
+      
+    }
+  }
+  
+  
+  return cbind(S,I,J,ans);
   
 }
+
+// // [[Rcpp::export(name=".similarity", rng = false)]]
+// NumericMatrix similarity(
+//     const ListOf<IntegerMatrix> & M,
+//     const std::string & statistic,
+//     bool normalized   = false,
+//     bool firstonly    = false,
+//     bool include_self = false,
+//     bool exclude_j    = false
+//   ) {
+//   
+//   funcPtr fun;
+//   getmetric(statistic, fun);
+//   
+//   return allsimilarities(M, normalized, fun, firstonly, include_self, exclude_j);
+//   
+// }
 
 // No longer needed
 #undef a

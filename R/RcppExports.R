@@ -239,15 +239,15 @@ NULL
 #' @param M1,M2 Two integer matrices of the same size.
 #' @export
 #' 
-contingency_matrix <- function(M1, M2) {
-    .Call(`_similR_contingency_matrix`, M1, M2)
+contingency_matrix <- function(M1, M2, include_self, exclude) {
+    .Call(`_similR_contingency_matrix`, M1, M2, include_self, exclude)
 }
 
 reduce_dim <- function(x, k) {
     .Call(`_similR_reduce_dim`, x, k)
 }
 
-.similarity <- function(M, statistic, normalized = FALSE, firstonly = FALSE, exclude_j = FALSE) {
-    .Call(`_similR_similarity`, M, statistic, normalized, firstonly, exclude_j)
+.similarity <- function(M, statistic, normalized = FALSE, firstonly = FALSE, include_self = FALSE, exclude_j = FALSE) {
+    .Call(`_similR_similarity`, M, statistic, normalized, firstonly, include_self, exclude_j)
 }
 

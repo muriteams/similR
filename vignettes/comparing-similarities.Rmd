@@ -28,15 +28,16 @@ library(magrittr)
 
 ```{r loading-data}
 library(similR)
-data("powerset03")
+data("powerset04")
 data("statistics")
+powerset03 <- powerset04
 ```
 
 # Powerset of 3
 
 ```{r correlation-03, cache=FALSE}
 # Computing 
-all_raw03 <- similarity(powerset03, statistic = unlist(statistics))
+all_raw03 <- similarity(powerset03, statistic = unlist(statistics), ncores = 4)
 all03 <- all_raw03
 all03[!is.finite(all03)] <- NA
 
