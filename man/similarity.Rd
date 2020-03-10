@@ -3,8 +3,10 @@
 \name{similarity}
 \alias{similarity}
 \alias{Jaccard}
+\alias{Sorensen-Dice}
 \alias{Faith}
 \alias{Gower-&-Legendre}
+\alias{Rusell-&-Rao}
 \alias{Sized-Difference}
 \alias{Shape-Difference}
 \alias{Tarwid}
@@ -32,9 +34,7 @@ similarity(
   normalized = TRUE,
   firstonly = FALSE,
   include_self = FALSE,
-  exclude_j = FALSE,
-  ncores = 1L,
-  cl = NULL
+  exclude_j = FALSE
 )
 
 \method{similarity}{list}(
@@ -44,9 +44,7 @@ similarity(
   normalized = TRUE,
   firstonly = FALSE,
   include_self = FALSE,
-  exclude_j = FALSE,
-  ncores = 1L,
-  cl = NULL
+  exclude_j = FALSE
 )
 
 \method{similarity}{matrix}(
@@ -56,9 +54,7 @@ similarity(
   normalized = TRUE,
   firstonly = FALSE,
   include_self = FALSE,
-  exclude_j = FALSE,
-  ncores = 1L,
-  cl = NULL
+  exclude_j = FALSE
 )
 }
 \arguments{
@@ -81,9 +77,6 @@ networks, the default is set to \code{FALE}.}
 
 \item{exclude_j}{Logical. When \code{TRUE}, the comparison between matrices \code{i} and
 \code{j} is done after the jth column and rows are removed from each.}
-
-\item{ncores, cl}{If specified, calculations are done in parallel using
-\code{\link[parallel:parLapply]{parallel::parLapply()}} (currently ignored).}
 }
 \value{
 A matrix of size \code{n*(n - 1)/2} by \code{length(statistic)}, where columns
@@ -118,12 +111,27 @@ and \strong{Distance} sections.
 
 
 \itemize{
+\item Sørensen–Dice coefficient (2), Sczekanowsk (3), Nei \& Li (5): \code{"sdice"} or \code{"sczekanowsk"} or \code{"sneili"}
+}
+
+
+\itemize{
+\item 3w-jaccard (4): \code{"s3wjaccard"}
+}
+
+
+\itemize{
 \item Faith (10): \code{"sfaith"} or \code{"faith"}
 }
 
 
 \itemize{
 \item Gower and Legendre (11): \code{"sgl"} or \code{"gl"}
+}
+
+
+\itemize{
+\item Rusell & Rao (14): \code{"srusrao"}
 }
 
 
@@ -249,7 +257,7 @@ where \eqn{\sigma}{s} and \eqn{\sigma}{s'} are defined as in (69).
 }
 
 
-Ask Kyosuke Tanaka
+In the case of \code{fscore}, ask Kyosuke Tanaka.
 }
 
 \section{Distance}{

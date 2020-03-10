@@ -14,8 +14,6 @@
 #' networks, the default is set to `FALE`.
 #' @param exclude_j Logical. When `TRUE`, the comparison between matrices `i` and
 #' `j` is done after the jth column and rows are removed from each.
-#' @param ncores,cl If specified, calculations are done in parallel using
-#' [parallel::parLapply()] (currently ignored).
 #' @template matrix
 #' @details 
 #' All of the available statistics are based on a 2x2 contingency matrix counting
@@ -72,9 +70,7 @@ similarity <- function(
   normalized = TRUE,
   firstonly  = FALSE,
   include_self = FALSE,
-  exclude_j  = FALSE,
-  ncores     = 1L,
-  cl         = NULL
+  exclude_j  = FALSE
   )
   UseMethod("similarity")
 
@@ -87,18 +83,8 @@ similarity.list <- function(
   normalized = TRUE,
   firstonly  = FALSE,
   include_self = FALSE,
-  exclude_j  = FALSE,
-  ncores     = 1L,
-  cl         = NULL
+  exclude_j  = FALSE
   ) {
-  
-  if (ncores > 1L && is.null(cl)) {
-    
-    on.exit(parallel::stopCluster(cl))
-    cl <- parallel::makePSOCKcluster(ncores)
-    parallel::clusterEvalQ(cl, library(similR))
-    
-  }
   
   # Checking the dots
   dots <- list(...)
@@ -108,56 +94,17 @@ similarity.list <- function(
       call. = FALSE
       )
   
-  # if (length(statistic) > 1) {
-  #   
-  #   ans <-  if (!is.null(cl)) {
-  #     
-  #     parallel::parLapplyLB(
-  #       cl         = cl,
-  #       X          = statistic,
-  #       fun        = similR:::.similarity,
-  #       M          = M,
-  #       normalized = normalized,
-  #       include_self = include_self,
-  #       firstonly  = firstonly,
-  #       exclude_j  = exclude_j
-  #       )
-  #     
-  #   } else {
-  #     
-  #     lapply(statistic, .similarity, M = M, normalized = normalized,
-  #            firstonly = firstonly, include_self = include_self,
-  #            exclude_j = exclude_j)
-  #     
-  #   }
-  #   
-  #   
-  #   ans <- do.call(
-  #     cbind,
-  #     c(ans[1], lapply(ans[-1], "[", i=, j=-c(1,2)))
-  #     )
-  #   
-  # } else {
-    
-    ans <- .similarity(
-      M            = M,
-      statistic    = statistic,
-      normalized   = normalized,
-      firstonly    = firstonly,
-      include_self = include_self,
-      exclude_j    = exclude_j
-      )
-  # }
-
-  # colnames(ans) <- c(statistic, "i", "j")
+  ans <- .similarity(
+    M            = M,
+    statistic    = statistic,
+    normalized   = normalized,
+    firstonly    = firstonly,
+    include_self = include_self,
+    exclude_j    = exclude_j
+    )
   
-  data.frame(
-    statistic = statistic[ans[,1] + 1],
-    i         = ans[,2],
-    j         = ans[,3],
-    value     = ans[,4],
-    stringsAsFactors = FALSE
-  )
+  colnames(ans) <- c("i", "j", statistic)
+  ans
   
   
 }
@@ -170,9 +117,7 @@ similarity.matrix <- function(
   normalized   = TRUE,
   firstonly    = FALSE,
   include_self = FALSE,
-  exclude_j    = FALSE,
-  ncores       = 1L,
-  cl           = NULL
+  exclude_j    = FALSE
 ) {
   
   dots <- list(...)
@@ -184,6 +129,6 @@ similarity.matrix <- function(
   
   similarity(M = c(list(M), dots), statistic=statistic, normalized=normalized,
              firstonly = firstonly, include_self = include_self,
-             exclude_j = exclude_j, ncores = ncores, cl = cl)
+             exclude_j = exclude_j)
   
 }

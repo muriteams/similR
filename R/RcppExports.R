@@ -38,6 +38,19 @@ NULL
 #' @name similarity
 #' @rdname similarity
 #' @section Similarity:
+#' - Sørensen–Dice coefficient (2), Sczekanowsk (3), Nei \& Li (5): `"sdice"` or `"sczekanowsk"` or `"sneili"`
+#' @aliases Sorensen-Dice
+NULL
+
+#' @name similarity
+#' @rdname similarity
+#' @section Similarity:
+#' - 3w-jaccard (4): `"s3wjaccard"`
+NULL
+
+#' @name similarity
+#' @rdname similarity
+#' @section Similarity:
 #' - Faith (10): `"sfaith"` or `"faith"`
 #' @aliases Faith
 NULL
@@ -47,6 +60,13 @@ NULL
 #' @section Similarity:
 #' - Gower and Legendre (11): `"sgl"` or `"gl"`
 #' @aliases Gower-&-Legendre
+NULL
+
+#' @name similarity
+#' @rdname similarity
+#' @section Similarity:
+#' - Rusell & Rao (14): `"srusrao"`
+#' @aliases Rusell-&-Rao
 NULL
 
 #' @name similarity
@@ -232,11 +252,18 @@ NULL
 #' @rdname similarity
 #' @aliases Fscore
 #' @section Similarity: 
-#' Ask Kyosuke Tanaka
+#' In the case of `fscore`, ask Kyosuke Tanaka.
 NULL
 
 #' Contingency Table
 #' @param M1,M2 Two integer matrices of the same size.
+#' @param include_self Logical scalar. When `TRUE` the diagonal is
+#' included in the calculation.
+#' @param exclude Integer vector. List of indices to include
+#' during the calculation. For example, if individual 2 needs
+#' to be excluded, setting `exclude = c(2)` will include the
+#' second rows and columns from calculation.
+#' 
 #' @export
 #' 
 contingency_matrix <- function(M1, M2, include_self, exclude) {

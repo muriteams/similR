@@ -28,16 +28,15 @@ library(magrittr)
 
 ```{r loading-data}
 library(similR)
-data("powerset04")
+data("powerset03")
 data("statistics")
-powerset03 <- powerset04
 ```
 
 # Powerset of 3
 
 ```{r correlation-03, cache=FALSE}
 # Computing 
-all_raw03 <- similarity(powerset03, statistic = unlist(statistics), ncores = 4)
+all_raw03 <- similarity(powerset03, statistic = unlist(statistics))
 all03 <- all_raw03
 all03[!is.finite(all03)] <- NA
 
@@ -97,3 +96,139 @@ lapply(3:ncol(all03), function(i) {
 Of all the measurements shown here, only 6 were defined for all cases. In the case of Anderberg, it might not be the best option because of its negatively correlatedness with most of the measures. Both Jaccard and Hamming, even though popular, show very low variances overall compare to Michael and Hamann, which if you care about heterogeneity in the measurements (this could be a key factor in regression analysis) can be important.
 
 
+# Powerset of 4 (sample of it)
+
+```{r sample-of-powerset4}
+data("powerset04")
+set.seed(1351)
+dat <- sample(powerset04, size = 2000)
+```
+
+```{r correlation-04, cache=FALSE}
+# Computing 
+all_raw04 <- similarity(dat, statistic = unlist(statistics))
+all04 <- all_raw04
+all04[!is.finite(all04)] <- NA
+
+all_cor04 <- all04
+all_cor04[,statistics$distance] <- -all_cor04[,statistics$distance]
+all_cor04 <- cor(all_cor04[,-c(1,2)], use = "pairwise.complete.obs")
+# knitr::kable(all_cor, digits = 2)
+```
+
+```{r correlation-plot-04, out.width="600px", fig.width=6, fig.height=6}
+res <- cbind(a=rownames(all_cor04), as.data.frame(all_cor03))
+res <- lapply(2:ncol(res), function(i) {
+  data.frame(
+    a    = res[,1],
+    b    = colnames(res)[i],
+    corr = res[,i],
+    stringsAsFactors = FALSE
+  )
+  }) %>%
+  do.call("rbind", .)
+
+ggplot(res, aes(x=a, y=b, fill=corr))+
+  scale_fill_distiller(palette = "RdBu") +
+  geom_bin2d() +
+  labs(fill     = "Correlation") +
+  labs(title    = "Correlation between similarity statistics") +
+  labs(subtitle = "(Distance was used as negative)") +
+  theme(
+    axis.text       = element_text(angle = 45, hjust = 1),
+    legend.position = "bottom",
+    axis.title      = element_blank()
+    )
+```
+
+```{r summary-stats-04}
+sum_stats04 <- lapply(3:ncol(all04), function(i) {
+
+  ans <- data.frame(
+    Statistic = colnames(all04)[i],
+    `% Miss`    = sum(!is.finite(all04[,i]))/length(all04[,i])*100,
+    `Variance`  = var(all04[,i], na.rm=TRUE),
+    `Min`       = min(all04[,i], na.rm=TRUE),
+    `Max`       = max(all04[,i], na.rm=TRUE),
+    `p25`       = quantile(all04[,i], .25, na.rm=TRUE),
+    `p75`       = quantile(all04[,i], .75, na.rm=TRUE),
+    check.names = FALSE
+  )
+  
+  ans$IQR <- with(ans, p75 - p25)
+  ans
+  
+}) %>%
+  do.call(rbind, .) 
+
+sum_stats04[with(sum_stats04, order(`% Miss`, -Variance)),] %>%
+  knitr::kable(digits=2)
+```
+
+# Simulation of size 5
+
+```{r sample-of-5}
+set.seed(71723)
+dat <- replicate(2e3, matrix(sample.int(2, 25, TRUE)-1, nrow = 5, ncol = 5), simplify = FALSE)
+```
+
+```{r correlation-05, cache=FALSE}
+# Computing 
+all_raw04 <- similarity(dat, statistic = unlist(statistics))
+all04 <- all_raw04
+all04[!is.finite(all04)] <- NA
+
+all_cor04 <- all04
+all_cor04[,statistics$distance] <- -all_cor04[,statistics$distance]
+all_cor04 <- cor(all_cor04[,-c(1,2)], use = "pairwise.complete.obs")
+# knitr::kable(all_cor, digits = 2)
+```
+
+```{r correlation-plot-05, out.width="600px", fig.width=6, fig.height=6}
+res <- cbind(a=rownames(all_cor04), as.data.frame(all_cor04))
+res <- lapply(2:ncol(res), function(i) {
+  data.frame(
+    a    = res[,1],
+    b    = colnames(res)[i],
+    corr = res[,i],
+    stringsAsFactors = FALSE
+  )
+  }) %>%
+  do.call("rbind", .)
+
+ggplot(res, aes(x=a, y=b, fill=corr))+
+  scale_fill_distiller(palette = "RdBu") +
+  geom_bin2d() +
+  labs(fill     = "Correlation") +
+  labs(title    = "Correlation between similarity statistics") +
+  labs(subtitle = "(Distance was used as negative)") +
+  theme(
+    axis.text       = element_text(angle = 45, hjust = 1),
+    legend.position = "bottom",
+    axis.title      = element_blank()
+    )
+```
+
+```{r summary-stats-05}
+sum_stats04 <- lapply(3:ncol(all04), function(i) {
+
+  ans <- data.frame(
+    Statistic = colnames(all04)[i],
+    `% Miss`    = sum(!is.finite(all04[,i]))/length(all04[,i])*100,
+    `Variance`  = var(all04[,i], na.rm=TRUE),
+    `Min`       = min(all04[,i], na.rm=TRUE),
+    `Max`       = max(all04[,i], na.rm=TRUE),
+    `p25`       = quantile(all04[,i], .25, na.rm=TRUE),
+    `p75`       = quantile(all04[,i], .75, na.rm=TRUE),
+    check.names = FALSE
+  )
+  
+  ans$IQR <- with(ans, p75 - p25)
+  ans
+  
+}) %>%
+  do.call(rbind, .) 
+
+sum_stats04[with(sum_stats04, order(`% Miss`, -Variance)),] %>%
+  knitr::kable(digits=2)
+```

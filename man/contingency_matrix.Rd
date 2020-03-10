@@ -8,6 +8,14 @@ contingency_matrix(M1, M2, include_self, exclude)
 }
 \arguments{
 \item{M1, M2}{Two integer matrices of the same size.}
+
+\item{include_self}{Logical scalar. When \code{TRUE} the diagonal is
+included in the calculation.}
+
+\item{exclude}{Integer vector. List of indices to include
+during the calculation. For example, if individual 2 needs
+to be excluded, setting \code{exclude = c(2)} will include the
+second rows and columns from calculation.}
 }
 \description{
 Contingency Table
