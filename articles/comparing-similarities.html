@@ -75,7 +75,7 @@
       <h1>Comparing Similarities and Distance</h1>
                         <h4 class="author">George G. Vega Yon</h4>
             
-            <h4 class="date">2020-03-10</h4>
+            <h4 class="date">2020-03-13</h4>
       
       
       <div class="hidden name"><code>comparing-similarities.Rmd</code></div>
@@ -95,7 +95,7 @@
 <h1 class="hasAnchor">
 <a href="#powerset-of-3" class="anchor"></a>Powerset of 3</h1>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># Computing </span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">all_raw03 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/similarity.html">similarity</a></span>(powerset03, <span class="dt">statistic =</span> <span class="kw"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span>(statistics))</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">all_raw03 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/similarity.html">similarity</a></span>(powerset03, <span class="dt">statistic =</span> <span class="kw"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span>(statistics<span class="op">$</span>alias))</a>
 <a class="sourceLine" id="cb2-3" data-line-number="3">all03 &lt;-<span class="st"> </span>all_raw03</a>
 <a class="sourceLine" id="cb2-4" data-line-number="4">all03[<span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/is.finite.html">is.finite</a></span>(all03)] &lt;-<span class="st"> </span><span class="ot">NA</span></a>
 <a class="sourceLine" id="cb2-5" data-line-number="5"></a>
@@ -159,73 +159,7 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td>similarity1</td>
-<td align="left">sanderberg</td>
-<td align="right">0.00</td>
-<td align="right">0.04</td>
-<td align="right">0.00</td>
-<td align="right">1.00</td>
-<td align="right">0.00</td>
-<td align="right">0.17</td>
-<td align="right">0.17</td>
-</tr>
-<tr class="even">
-<td>similarity2</td>
-<td align="left">sdisp</td>
-<td align="right">0.00</td>
-<td align="right">0.01</td>
-<td align="right">-0.25</td>
-<td align="right">0.17</td>
-<td align="right">-0.08</td>
-<td align="right">0.06</td>
-<td align="right">0.14</td>
-</tr>
-<tr class="odd">
-<td>similarity3</td>
-<td align="left">sfaith</td>
-<td align="right">0.00</td>
-<td align="right">0.03</td>
-<td align="right">0.00</td>
-<td align="right">0.83</td>
-<td align="right">0.25</td>
-<td align="right">0.50</td>
-<td align="right">0.25</td>
-</tr>
-<tr class="even">
-<td>similarity4</td>
-<td align="left">sgk</td>
-<td align="right">9.42</td>
-<td align="right">1.01</td>
-<td align="right">-3.00</td>
-<td align="right">0.00</td>
-<td align="right">-0.50</td>
-<td align="right">0.00</td>
-<td align="right">0.50</td>
-</tr>
-<tr class="odd">
-<td>similarity5</td>
-<td align="left">sgl</td>
-<td align="right">0.00</td>
-<td align="right">0.04</td>
-<td align="right">0.00</td>
-<td align="right">0.91</td>
-<td align="right">0.50</td>
-<td align="right">0.80</td>
-<td align="right">0.30</td>
-</tr>
-<tr class="even">
-<td>similarity6</td>
-<td align="left">shamann</td>
-<td align="right">0.00</td>
-<td align="right">0.11</td>
-<td align="right">-1.00</td>
-<td align="right">1.00</td>
-<td align="right">0.33</td>
-<td align="right">0.67</td>
-<td align="right">0.33</td>
-</tr>
-<tr class="odd">
-<td>similarity7</td>
+<td>25%</td>
 <td align="left">sjaccard</td>
 <td align="right">0.00</td>
 <td align="right">0.05</td>
@@ -236,7 +170,227 @@
 <td align="right">0.30</td>
 </tr>
 <tr class="even">
-<td>similarity8</td>
+<td>25%1</td>
+<td align="left">sdice</td>
+<td align="right">0.00</td>
+<td align="right">0.07</td>
+<td align="right">0.00</td>
+<td align="right">0.91</td>
+<td align="right">0.33</td>
+<td align="right">0.67</td>
+<td align="right">0.33</td>
+</tr>
+<tr class="odd">
+<td>25%2</td>
+<td align="left">s3wjaccard</td>
+<td align="right">0.00</td>
+<td align="right">0.08</td>
+<td align="right">0.00</td>
+<td align="right">0.94</td>
+<td align="right">0.43</td>
+<td align="right">0.75</td>
+<td align="right">0.32</td>
+</tr>
+<tr class="even">
+<td>25%3</td>
+<td align="left">ssokmich</td>
+<td align="right">0.00</td>
+<td align="right">0.04</td>
+<td align="right">0.00</td>
+<td align="right">0.83</td>
+<td align="right">0.33</td>
+<td align="right">0.67</td>
+<td align="right">0.33</td>
+</tr>
+<tr class="odd">
+<td>25%4</td>
+<td align="left">ssoksne</td>
+<td align="right">0.00</td>
+<td align="right">0.04</td>
+<td align="right">0.00</td>
+<td align="right">0.91</td>
+<td align="right">0.50</td>
+<td align="right">0.80</td>
+<td align="right">0.30</td>
+</tr>
+<tr class="even">
+<td>25%5</td>
+<td align="left">roger&amp;tanimoto</td>
+<td align="right">0.00</td>
+<td align="right">0.03</td>
+<td align="right">0.00</td>
+<td align="right">0.71</td>
+<td align="right">0.20</td>
+<td align="right">0.50</td>
+<td align="right">0.30</td>
+</tr>
+<tr class="odd">
+<td>25%6</td>
+<td align="left">sfaith</td>
+<td align="right">0.00</td>
+<td align="right">0.03</td>
+<td align="right">0.00</td>
+<td align="right">0.83</td>
+<td align="right">0.25</td>
+<td align="right">0.50</td>
+<td align="right">0.25</td>
+</tr>
+<tr class="even">
+<td>25%7</td>
+<td align="left">sgl</td>
+<td align="right">0.00</td>
+<td align="right">0.04</td>
+<td align="right">0.00</td>
+<td align="right">0.91</td>
+<td align="right">0.50</td>
+<td align="right">0.80</td>
+<td align="right">0.30</td>
+</tr>
+<tr class="odd">
+<td>25%8</td>
+<td align="left">srusrao</td>
+<td align="right">0.00</td>
+<td align="right">0.03</td>
+<td align="right">0.00</td>
+<td align="right">0.83</td>
+<td align="right">0.17</td>
+<td align="right">0.33</td>
+<td align="right">0.17</td>
+</tr>
+<tr class="even">
+<td>25%9</td>
+<td align="left">dvari</td>
+<td align="right">0.00</td>
+<td align="right">3.10</td>
+<td align="right">1.50</td>
+<td align="right">9.00</td>
+<td align="right">3.00</td>
+<td align="right">6.00</td>
+<td align="right">3.00</td>
+</tr>
+<tr class="odd">
+<td>25%10</td>
+<td align="left">dsizedif</td>
+<td align="right">0.00</td>
+<td align="right">0.04</td>
+<td align="right">0.03</td>
+<td align="right">1.00</td>
+<td align="right">0.11</td>
+<td align="right">0.44</td>
+<td align="right">0.33</td>
+</tr>
+<tr class="even">
+<td>25%11</td>
+<td align="left">dsphd</td>
+<td align="right">0.00</td>
+<td align="right">0.02</td>
+<td align="right">-0.50</td>
+<td align="right">0.50</td>
+<td align="right">0.06</td>
+<td align="right">0.22</td>
+<td align="right">0.17</td>
+</tr>
+<tr class="odd">
+<td>25%12</td>
+<td align="left">dpattdif</td>
+<td align="right">0.00</td>
+<td align="right">0.04</td>
+<td align="right">0.00</td>
+<td align="right">1.00</td>
+<td align="right">0.00</td>
+<td align="right">0.33</td>
+<td align="right">0.33</td>
+</tr>
+<tr class="even">
+<td>25%13</td>
+<td align="left">starwid</td>
+<td align="right">3.12</td>
+<td align="right">0.09</td>
+<td align="right">-1.00</td>
+<td align="right">0.20</td>
+<td align="right">-0.45</td>
+<td align="right">-0.20</td>
+<td align="right">0.25</td>
+</tr>
+<tr class="odd">
+<td>25%14</td>
+<td align="left">sph1</td>
+<td align="right">6.20</td>
+<td align="right">0.19</td>
+<td align="right">-1.00</td>
+<td align="right">0.71</td>
+<td align="right">-0.33</td>
+<td align="right">0.33</td>
+<td align="right">0.67</td>
+</tr>
+<tr class="even">
+<td>25%15</td>
+<td align="left">dhamming</td>
+<td align="right">0.00</td>
+<td align="right">0.04</td>
+<td align="right">0.17</td>
+<td align="right">1.00</td>
+<td align="right">0.33</td>
+<td align="right">0.67</td>
+<td align="right">0.33</td>
+</tr>
+<tr class="odd">
+<td>25%16</td>
+<td align="left">dmeanman</td>
+<td align="right">0.00</td>
+<td align="right">0.04</td>
+<td align="right">0.17</td>
+<td align="right">1.00</td>
+<td align="right">0.33</td>
+<td align="right">0.67</td>
+<td align="right">0.33</td>
+</tr>
+<tr class="even">
+<td>25%17</td>
+<td align="left">sdennis</td>
+<td align="right">3.12</td>
+<td align="right">0.54</td>
+<td align="right">-1.73</td>
+<td align="right">1.63</td>
+<td align="right">-0.58</td>
+<td align="right">0.58</td>
+<td align="right">1.15</td>
+</tr>
+<tr class="odd">
+<td>25%18</td>
+<td align="left">syuleq</td>
+<td align="right">6.20</td>
+<td align="right">0.65</td>
+<td align="right">-1.00</td>
+<td align="right">1.00</td>
+<td align="right">-1.00</td>
+<td align="right">1.00</td>
+<td align="right">2.00</td>
+</tr>
+<tr class="even">
+<td>25%19</td>
+<td align="left">syuleqw</td>
+<td align="right">6.20</td>
+<td align="right">0.61</td>
+<td align="right">-1.00</td>
+<td align="right">1.00</td>
+<td align="right">-1.00</td>
+<td align="right">1.00</td>
+<td align="right">2.00</td>
+</tr>
+<tr class="odd">
+<td>25%20</td>
+<td align="left">dyuleq</td>
+<td align="right">6.20</td>
+<td align="right">0.65</td>
+<td align="right">0.00</td>
+<td align="right">2.00</td>
+<td align="right">0.00</td>
+<td align="right">2.00</td>
+<td align="right">2.00</td>
+</tr>
+<tr class="even">
+<td>25%21</td>
 <td align="left">smichael</td>
 <td align="right">0.00</td>
 <td align="right">0.31</td>
@@ -247,7 +401,51 @@
 <td align="right">1.04</td>
 </tr>
 <tr class="odd">
-<td>similarity9</td>
+<td>25%22</td>
+<td align="left">sdisp</td>
+<td align="right">0.00</td>
+<td align="right">0.01</td>
+<td align="right">-0.25</td>
+<td align="right">0.17</td>
+<td align="right">-0.08</td>
+<td align="right">0.06</td>
+<td align="right">0.14</td>
+</tr>
+<tr class="even">
+<td>25%23</td>
+<td align="left">shamann</td>
+<td align="right">0.00</td>
+<td align="right">0.11</td>
+<td align="right">-1.00</td>
+<td align="right">1.00</td>
+<td align="right">0.33</td>
+<td align="right">0.67</td>
+<td align="right">0.33</td>
+</tr>
+<tr class="odd">
+<td>25%24</td>
+<td align="left">sgk</td>
+<td align="right">9.42</td>
+<td align="right">1.01</td>
+<td align="right">-3.00</td>
+<td align="right">0.00</td>
+<td align="right">-0.50</td>
+<td align="right">0.00</td>
+<td align="right">0.50</td>
+</tr>
+<tr class="even">
+<td>25%25</td>
+<td align="left">sanderberg</td>
+<td align="right">0.00</td>
+<td align="right">0.04</td>
+<td align="right">0.00</td>
+<td align="right">1.00</td>
+<td align="right">0.00</td>
+<td align="right">0.17</td>
+<td align="right">0.17</td>
+</tr>
+<tr class="odd">
+<td>25%26</td>
 <td align="left">speirce</td>
 <td align="right">5.95</td>
 <td align="right">0.08</td>
@@ -258,685 +456,19 @@
 <td align="right">0.35</td>
 </tr>
 <tr class="even">
-<td>similarity10</td>
-<td align="left">sph1</td>
-<td align="right">6.20</td>
-<td align="right">0.19</td>
-<td align="right">-1.00</td>
-<td align="right">0.71</td>
-<td align="right">-0.33</td>
-<td align="right">0.33</td>
-<td align="right">0.67</td>
-</tr>
-<tr class="odd">
-<td>similarity11</td>
-<td align="left">starwid</td>
-<td align="right">3.12</td>
-<td align="right">0.09</td>
-<td align="right">-1.00</td>
-<td align="right">0.20</td>
-<td align="right">-0.45</td>
-<td align="right">-0.20</td>
-<td align="right">0.25</td>
-</tr>
-<tr class="even">
-<td>similarity12</td>
-<td align="left">syuleq</td>
-<td align="right">6.20</td>
-<td align="right">0.65</td>
-<td align="right">-1.00</td>
-<td align="right">1.00</td>
-<td align="right">-1.00</td>
-<td align="right">1.00</td>
-<td align="right">2.00</td>
-</tr>
-<tr class="odd">
-<td>similarity13</td>
-<td align="left">syuleqw</td>
-<td align="right">6.20</td>
-<td align="right">0.61</td>
-<td align="right">-1.00</td>
-<td align="right">1.00</td>
-<td align="right">-1.00</td>
-<td align="right">1.00</td>
-<td align="right">2.00</td>
-</tr>
-<tr class="even">
-<td>distance1</td>
-<td align="left">dennis</td>
-<td align="right">3.12</td>
-<td align="right">0.54</td>
-<td align="right">-1.73</td>
-<td align="right">1.63</td>
-<td align="right">-0.58</td>
-<td align="right">0.58</td>
-<td align="right">1.15</td>
-</tr>
-<tr class="odd">
-<td>distance2</td>
-<td align="left">dhamming</td>
-<td align="right">0.00</td>
-<td align="right">0.04</td>
-<td align="right">0.17</td>
-<td align="right">1.00</td>
-<td align="right">0.33</td>
-<td align="right">0.67</td>
-<td align="right">0.33</td>
-</tr>
-<tr class="even">
-<td>distance3</td>
-<td align="left">dmh</td>
-<td align="right">0.00</td>
-<td align="right">0.04</td>
-<td align="right">0.17</td>
-<td align="right">1.00</td>
-<td align="right">0.33</td>
-<td align="right">0.67</td>
-<td align="right">0.33</td>
-</tr>
-<tr class="odd">
-<td>distance4</td>
-<td align="left">dsd</td>
-<td align="right">0.00</td>
-<td align="right">0.04</td>
+<td>25%27</td>
+<td align="left">fscore</td>
+<td align="right">18.06</td>
 <td align="right">0.03</td>
-<td align="right">1.00</td>
-<td align="right">0.11</td>
-<td align="right">0.44</td>
-<td align="right">0.33</td>
-</tr>
-<tr class="even">
-<td>distance5</td>
-<td align="left">dsphd</td>
-<td align="right">0.00</td>
-<td align="right">0.02</td>
-<td align="right">-0.50</td>
-<td align="right">0.50</td>
-<td align="right">0.06</td>
-<td align="right">0.22</td>
-<td align="right">0.17</td>
-</tr>
-<tr class="odd">
-<td>distance6</td>
-<td align="left">dyuleq</td>
-<td align="right">6.20</td>
-<td align="right">0.65</td>
-<td align="right">0.00</td>
-<td align="right">2.00</td>
-<td align="right">0.00</td>
-<td align="right">2.00</td>
-<td align="right">2.00</td>
+<td align="right">0.29</td>
+<td align="right">0.91</td>
+<td align="right">0.40</td>
+<td align="right">0.67</td>
+<td align="right">0.27</td>
 </tr>
 </tbody>
 </table>
 <p>Of all the measurements shown here, only 6 were defined for all cases. In the case of Anderberg, it might not be the best option because of its negatively correlatedness with most of the measures. Both Jaccard and Hamming, even though popular, show very low variances overall compare to Michael and Hamann, which if you care about heterogeneity in the measurements (this could be a key factor in regression analysis) can be important.</p>
-</div>
-<div id="powerset-of-4-sample-of-it" class="section level1">
-<h1 class="hasAnchor">
-<a href="#powerset-of-4-sample-of-it" class="anchor"></a>Powerset of 4 (sample of it)</h1>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="st">"powerset04"</span>)</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="dv">1351</span>)</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3">dat &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/sample.html">sample</a></span>(powerset04, <span class="dt">size =</span> <span class="dv">2000</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co"># Computing </span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">all_raw04 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/similarity.html">similarity</a></span>(dat, <span class="dt">statistic =</span> <span class="kw"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span>(statistics))</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">all04 &lt;-<span class="st"> </span>all_raw04</a>
-<a class="sourceLine" id="cb6-4" data-line-number="4">all04[<span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/is.finite.html">is.finite</a></span>(all04)] &lt;-<span class="st"> </span><span class="ot">NA</span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb6-6" data-line-number="6">all_cor04 &lt;-<span class="st"> </span>all04</a>
-<a class="sourceLine" id="cb6-7" data-line-number="7">all_cor04[,statistics<span class="op">$</span>distance] &lt;-<span class="st"> </span><span class="op">-</span>all_cor04[,statistics<span class="op">$</span>distance]</a>
-<a class="sourceLine" id="cb6-8" data-line-number="8">all_cor04 &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span>(all_cor04[,<span class="op">-</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>,<span class="dv">2</span>)], <span class="dt">use =</span> <span class="st">"pairwise.complete.obs"</span>)</a>
-<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="co"># knitr::kable(all_cor, digits = 2)</span></a></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">res &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(<span class="dt">a=</span><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(all_cor04), <span class="kw"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span>(all_cor03))</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">res &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="dv">2</span><span class="op">:</span><span class="kw"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span>(res), <span class="cf">function</span>(i) {</a>
-<a class="sourceLine" id="cb7-3" data-line-number="3">  <span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(</a>
-<a class="sourceLine" id="cb7-4" data-line-number="4">    <span class="dt">a    =</span> res[,<span class="dv">1</span>],</a>
-<a class="sourceLine" id="cb7-5" data-line-number="5">    <span class="dt">b    =</span> <span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(res)[i],</a>
-<a class="sourceLine" id="cb7-6" data-line-number="6">    <span class="dt">corr =</span> res[,i],</a>
-<a class="sourceLine" id="cb7-7" data-line-number="7">    <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span></a>
-<a class="sourceLine" id="cb7-8" data-line-number="8">  )</a>
-<a class="sourceLine" id="cb7-9" data-line-number="9">  }) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-10" data-line-number="10"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(<span class="st">"rbind"</span>, .)</a>
-<a class="sourceLine" id="cb7-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb7-12" data-line-number="12"><span class="kw">ggplot</span>(res, <span class="kw">aes</span>(<span class="dt">x=</span>a, <span class="dt">y=</span>b, <span class="dt">fill=</span>corr))<span class="op">+</span></a>
-<a class="sourceLine" id="cb7-13" data-line-number="13"><span class="st">  </span><span class="kw">scale_fill_distiller</span>(<span class="dt">palette =</span> <span class="st">"RdBu"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb7-14" data-line-number="14"><span class="st">  </span><span class="kw">geom_bin2d</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb7-15" data-line-number="15"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">fill     =</span> <span class="st">"Correlation"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb7-16" data-line-number="16"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title    =</span> <span class="st">"Correlation between similarity statistics"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb7-17" data-line-number="17"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">"(Distance was used as negative)"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb7-18" data-line-number="18"><span class="st">  </span><span class="kw">theme</span>(</a>
-<a class="sourceLine" id="cb7-19" data-line-number="19">    <span class="dt">axis.text       =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>),</a>
-<a class="sourceLine" id="cb7-20" data-line-number="20">    <span class="dt">legend.position =</span> <span class="st">"bottom"</span>,</a>
-<a class="sourceLine" id="cb7-21" data-line-number="21">    <span class="dt">axis.title      =</span> <span class="kw">element_blank</span>()</a>
-<a class="sourceLine" id="cb7-22" data-line-number="22">    )</a></code></pre></div>
-<p><img src="comparing-similarities_files/figure-html/correlation-plot-04-1.png" width="600px" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">sum_stats04 &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="dv">3</span><span class="op">:</span><span class="kw"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span>(all04), <span class="cf">function</span>(i) {</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb8-3" data-line-number="3">  ans &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(</a>
-<a class="sourceLine" id="cb8-4" data-line-number="4">    <span class="dt">Statistic =</span> <span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(all04)[i],</a>
-<a class="sourceLine" id="cb8-5" data-line-number="5">    <span class="st">`</span><span class="dt">% Miss</span><span class="st">`</span>    =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/is.finite.html">is.finite</a></span>(all04[,i]))<span class="op">/</span><span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(all04[,i])<span class="op">*</span><span class="dv">100</span>,</a>
-<a class="sourceLine" id="cb8-6" data-line-number="6">    <span class="st">`</span><span class="dt">Variance</span><span class="st">`</span>  =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/cor.html">var</a></span>(all04[,i], <span class="dt">na.rm=</span><span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb8-7" data-line-number="7">    <span class="st">`</span><span class="dt">Min</span><span class="st">`</span>       =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span>(all04[,i], <span class="dt">na.rm=</span><span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb8-8" data-line-number="8">    <span class="st">`</span><span class="dt">Max</span><span class="st">`</span>       =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(all04[,i], <span class="dt">na.rm=</span><span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb8-9" data-line-number="9">    <span class="st">`</span><span class="dt">p25</span><span class="st">`</span>       =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span>(all04[,i], <span class="fl">.25</span>, <span class="dt">na.rm=</span><span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb8-10" data-line-number="10">    <span class="st">`</span><span class="dt">p75</span><span class="st">`</span>       =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span>(all04[,i], <span class="fl">.75</span>, <span class="dt">na.rm=</span><span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb8-11" data-line-number="11">    <span class="dt">check.names =</span> <span class="ot">FALSE</span></a>
-<a class="sourceLine" id="cb8-12" data-line-number="12">  )</a>
-<a class="sourceLine" id="cb8-13" data-line-number="13">  </a>
-<a class="sourceLine" id="cb8-14" data-line-number="14">  ans<span class="op">$</span>IQR &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/with.html">with</a></span>(ans, p75 <span class="op">-</span><span class="st"> </span>p25)</a>
-<a class="sourceLine" id="cb8-15" data-line-number="15">  ans</a>
-<a class="sourceLine" id="cb8-16" data-line-number="16">  </a>
-<a class="sourceLine" id="cb8-17" data-line-number="17">}) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb8-18" data-line-number="18"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(rbind, .) </a>
-<a class="sourceLine" id="cb8-19" data-line-number="19"></a>
-<a class="sourceLine" id="cb8-20" data-line-number="20">sum_stats04[<span class="kw"><a href="https://rdrr.io/r/base/with.html">with</a></span>(sum_stats04, <span class="kw"><a href="https://rdrr.io/r/base/order.html">order</a></span>(<span class="st">`</span><span class="dt">% Miss</span><span class="st">`</span>, <span class="op">-</span>Variance)),] <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb8-21" data-line-number="21"><span class="st">  </span>knitr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="dt">digits=</span><span class="dv">2</span>)</a></code></pre></div>
-<table class="table">
-<thead><tr class="header">
-<th></th>
-<th align="left">Statistic</th>
-<th align="right">% Miss</th>
-<th align="right">Variance</th>
-<th align="right">Min</th>
-<th align="right">Max</th>
-<th align="right">p25</th>
-<th align="right">p75</th>
-<th align="right">IQR</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td>distance1</td>
-<td align="left">dennis</td>
-<td align="right">0.00</td>
-<td align="right">0.81</td>
-<td align="right">-3.00</td>
-<td align="right">3.67</td>
-<td align="right">-0.55</td>
-<td align="right">0.55</td>
-<td align="right">1.10</td>
-</tr>
-<tr class="even">
-<td>similarity8</td>
-<td align="left">smichael</td>
-<td align="right">0.00</td>
-<td align="right">0.22</td>
-<td align="right">-1.00</td>
-<td align="right">0.98</td>
-<td align="right">-0.32</td>
-<td align="right">0.32</td>
-<td align="right">0.65</td>
-</tr>
-<tr class="odd">
-<td>similarity4</td>
-<td align="left">sgk</td>
-<td align="right">0.00</td>
-<td align="right">0.10</td>
-<td align="right">-3.00</td>
-<td align="right">0.00</td>
-<td align="right">-0.33</td>
-<td align="right">0.00</td>
-<td align="right">0.33</td>
-</tr>
-<tr class="even">
-<td>similarity6</td>
-<td align="left">shamann</td>
-<td align="right">0.00</td>
-<td align="right">0.06</td>
-<td align="right">-0.83</td>
-<td align="right">1.00</td>
-<td align="right">0.33</td>
-<td align="right">0.67</td>
-<td align="right">0.33</td>
-</tr>
-<tr class="odd">
-<td>similarity1</td>
-<td align="left">sanderberg</td>
-<td align="right">0.00</td>
-<td align="right">0.04</td>
-<td align="right">0.00</td>
-<td align="right">1.50</td>
-<td align="right">0.00</td>
-<td align="right">0.25</td>
-<td align="right">0.25</td>
-</tr>
-<tr class="even">
-<td>similarity7</td>
-<td align="left">sjaccard</td>
-<td align="right">0.00</td>
-<td align="right">0.03</td>
-<td align="right">0.00</td>
-<td align="right">0.92</td>
-<td align="right">0.22</td>
-<td align="right">0.44</td>
-<td align="right">0.22</td>
-</tr>
-<tr class="odd">
-<td>distance4</td>
-<td align="left">dsd</td>
-<td align="right">0.00</td>
-<td align="right">0.02</td>
-<td align="right">0.01</td>
-<td align="right">1.00</td>
-<td align="right">0.17</td>
-<td align="right">0.34</td>
-<td align="right">0.17</td>
-</tr>
-<tr class="even">
-<td>distance2</td>
-<td align="left">dhamming</td>
-<td align="right">0.00</td>
-<td align="right">0.02</td>
-<td align="right">0.08</td>
-<td align="right">1.00</td>
-<td align="right">0.42</td>
-<td align="right">0.58</td>
-<td align="right">0.17</td>
-</tr>
-<tr class="odd">
-<td>distance3</td>
-<td align="left">dmh</td>
-<td align="right">0.00</td>
-<td align="right">0.02</td>
-<td align="right">0.08</td>
-<td align="right">1.00</td>
-<td align="right">0.42</td>
-<td align="right">0.58</td>
-<td align="right">0.17</td>
-</tr>
-<tr class="even">
-<td>similarity11</td>
-<td align="left">starwid</td>
-<td align="right">0.00</td>
-<td align="right">0.02</td>
-<td align="right">-1.00</td>
-<td align="right">0.33</td>
-<td align="right">-0.58</td>
-<td align="right">-0.43</td>
-<td align="right">0.15</td>
-</tr>
-<tr class="odd">
-<td>similarity5</td>
-<td align="left">sgl</td>
-<td align="right">0.00</td>
-<td align="right">0.02</td>
-<td align="right">0.00</td>
-<td align="right">0.96</td>
-<td align="right">0.59</td>
-<td align="right">0.74</td>
-<td align="right">0.15</td>
-</tr>
-<tr class="even">
-<td>similarity3</td>
-<td align="left">sfaith</td>
-<td align="right">0.00</td>
-<td align="right">0.01</td>
-<td align="right">0.00</td>
-<td align="right">0.92</td>
-<td align="right">0.29</td>
-<td align="right">0.46</td>
-<td align="right">0.17</td>
-</tr>
-<tr class="odd">
-<td>similarity2</td>
-<td align="left">sdisp</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">-0.25</td>
-<td align="right">0.21</td>
-<td align="right">-0.04</td>
-<td align="right">0.04</td>
-<td align="right">0.08</td>
-</tr>
-<tr class="even">
-<td>distance5</td>
-<td align="left">dsphd</td>
-<td align="right">0.00</td>
-<td align="right">0.00</td>
-<td align="right">-0.53</td>
-<td align="right">0.33</td>
-<td align="right">0.08</td>
-<td align="right">0.17</td>
-<td align="right">0.09</td>
-</tr>
-<tr class="odd">
-<td>similarity9</td>
-<td align="left">speirce</td>
-<td align="right">0.08</td>
-<td align="right">0.03</td>
-<td align="right">0.00</td>
-<td align="right">1.00</td>
-<td align="right">0.40</td>
-<td align="right">0.60</td>
-<td align="right">0.20</td>
-</tr>
-<tr class="even">
-<td>similarity12</td>
-<td align="left">syuleq</td>
-<td align="right">0.10</td>
-<td align="right">0.31</td>
-<td align="right">-1.00</td>
-<td align="right">1.00</td>
-<td align="right">-0.43</td>
-<td align="right">0.43</td>
-<td align="right">0.86</td>
-</tr>
-<tr class="odd">
-<td>distance6</td>
-<td align="left">dyuleq</td>
-<td align="right">0.10</td>
-<td align="right">0.31</td>
-<td align="right">0.00</td>
-<td align="right">2.00</td>
-<td align="right">0.57</td>
-<td align="right">1.43</td>
-<td align="right">0.86</td>
-</tr>
-<tr class="even">
-<td>similarity13</td>
-<td align="left">syuleqw</td>
-<td align="right">0.10</td>
-<td align="right">0.19</td>
-<td align="right">-1.00</td>
-<td align="right">1.00</td>
-<td align="right">-0.23</td>
-<td align="right">0.23</td>
-<td align="right">0.45</td>
-</tr>
-<tr class="odd">
-<td>similarity10</td>
-<td align="left">sph1</td>
-<td align="right">0.10</td>
-<td align="right">0.09</td>
-<td align="right">-1.00</td>
-<td align="right">0.85</td>
-<td align="right">-0.19</td>
-<td align="right">0.19</td>
-<td align="right">0.38</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="simulation-of-size-5" class="section level1">
-<h1 class="hasAnchor">
-<a href="#simulation-of-size-5" class="anchor"></a>Simulation of size 5</h1>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="dv">71723</span>)</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2">dat &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">replicate</a></span>(<span class="fl">2e3</span>, <span class="kw"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/sample.html">sample.int</a></span>(<span class="dv">2</span>, <span class="dv">25</span>, <span class="ot">TRUE</span>)<span class="op">-</span><span class="dv">1</span>, <span class="dt">nrow =</span> <span class="dv">5</span>, <span class="dt">ncol =</span> <span class="dv">5</span>), <span class="dt">simplify =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="co"># Computing </span></a>
-<a class="sourceLine" id="cb10-2" data-line-number="2">all_raw04 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/similarity.html">similarity</a></span>(dat, <span class="dt">statistic =</span> <span class="kw"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span>(statistics))</a>
-<a class="sourceLine" id="cb10-3" data-line-number="3">all04 &lt;-<span class="st"> </span>all_raw04</a>
-<a class="sourceLine" id="cb10-4" data-line-number="4">all04[<span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/is.finite.html">is.finite</a></span>(all04)] &lt;-<span class="st"> </span><span class="ot">NA</span></a>
-<a class="sourceLine" id="cb10-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb10-6" data-line-number="6">all_cor04 &lt;-<span class="st"> </span>all04</a>
-<a class="sourceLine" id="cb10-7" data-line-number="7">all_cor04[,statistics<span class="op">$</span>distance] &lt;-<span class="st"> </span><span class="op">-</span>all_cor04[,statistics<span class="op">$</span>distance]</a>
-<a class="sourceLine" id="cb10-8" data-line-number="8">all_cor04 &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span>(all_cor04[,<span class="op">-</span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>,<span class="dv">2</span>)], <span class="dt">use =</span> <span class="st">"pairwise.complete.obs"</span>)</a>
-<a class="sourceLine" id="cb10-9" data-line-number="9"><span class="co"># knitr::kable(all_cor, digits = 2)</span></a></code></pre></div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">res &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(<span class="dt">a=</span><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(all_cor04), <span class="kw"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span>(all_cor04))</a>
-<a class="sourceLine" id="cb11-2" data-line-number="2">res &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="dv">2</span><span class="op">:</span><span class="kw"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span>(res), <span class="cf">function</span>(i) {</a>
-<a class="sourceLine" id="cb11-3" data-line-number="3">  <span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(</a>
-<a class="sourceLine" id="cb11-4" data-line-number="4">    <span class="dt">a    =</span> res[,<span class="dv">1</span>],</a>
-<a class="sourceLine" id="cb11-5" data-line-number="5">    <span class="dt">b    =</span> <span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(res)[i],</a>
-<a class="sourceLine" id="cb11-6" data-line-number="6">    <span class="dt">corr =</span> res[,i],</a>
-<a class="sourceLine" id="cb11-7" data-line-number="7">    <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span></a>
-<a class="sourceLine" id="cb11-8" data-line-number="8">  )</a>
-<a class="sourceLine" id="cb11-9" data-line-number="9">  }) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb11-10" data-line-number="10"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(<span class="st">"rbind"</span>, .)</a>
-<a class="sourceLine" id="cb11-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb11-12" data-line-number="12"><span class="kw">ggplot</span>(res, <span class="kw">aes</span>(<span class="dt">x=</span>a, <span class="dt">y=</span>b, <span class="dt">fill=</span>corr))<span class="op">+</span></a>
-<a class="sourceLine" id="cb11-13" data-line-number="13"><span class="st">  </span><span class="kw">scale_fill_distiller</span>(<span class="dt">palette =</span> <span class="st">"RdBu"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb11-14" data-line-number="14"><span class="st">  </span><span class="kw">geom_bin2d</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb11-15" data-line-number="15"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">fill     =</span> <span class="st">"Correlation"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb11-16" data-line-number="16"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title    =</span> <span class="st">"Correlation between similarity statistics"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb11-17" data-line-number="17"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">subtitle =</span> <span class="st">"(Distance was used as negative)"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb11-18" data-line-number="18"><span class="st">  </span><span class="kw">theme</span>(</a>
-<a class="sourceLine" id="cb11-19" data-line-number="19">    <span class="dt">axis.text       =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">1</span>),</a>
-<a class="sourceLine" id="cb11-20" data-line-number="20">    <span class="dt">legend.position =</span> <span class="st">"bottom"</span>,</a>
-<a class="sourceLine" id="cb11-21" data-line-number="21">    <span class="dt">axis.title      =</span> <span class="kw">element_blank</span>()</a>
-<a class="sourceLine" id="cb11-22" data-line-number="22">    )</a></code></pre></div>
-<p><img src="comparing-similarities_files/figure-html/correlation-plot-05-1.png" width="600px" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">sum_stats04 &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="dv">3</span><span class="op">:</span><span class="kw"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span>(all04), <span class="cf">function</span>(i) {</a>
-<a class="sourceLine" id="cb12-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb12-3" data-line-number="3">  ans &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(</a>
-<a class="sourceLine" id="cb12-4" data-line-number="4">    <span class="dt">Statistic =</span> <span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(all04)[i],</a>
-<a class="sourceLine" id="cb12-5" data-line-number="5">    <span class="st">`</span><span class="dt">% Miss</span><span class="st">`</span>    =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/is.finite.html">is.finite</a></span>(all04[,i]))<span class="op">/</span><span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(all04[,i])<span class="op">*</span><span class="dv">100</span>,</a>
-<a class="sourceLine" id="cb12-6" data-line-number="6">    <span class="st">`</span><span class="dt">Variance</span><span class="st">`</span>  =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/cor.html">var</a></span>(all04[,i], <span class="dt">na.rm=</span><span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb12-7" data-line-number="7">    <span class="st">`</span><span class="dt">Min</span><span class="st">`</span>       =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span>(all04[,i], <span class="dt">na.rm=</span><span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb12-8" data-line-number="8">    <span class="st">`</span><span class="dt">Max</span><span class="st">`</span>       =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(all04[,i], <span class="dt">na.rm=</span><span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb12-9" data-line-number="9">    <span class="st">`</span><span class="dt">p25</span><span class="st">`</span>       =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span>(all04[,i], <span class="fl">.25</span>, <span class="dt">na.rm=</span><span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb12-10" data-line-number="10">    <span class="st">`</span><span class="dt">p75</span><span class="st">`</span>       =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span>(all04[,i], <span class="fl">.75</span>, <span class="dt">na.rm=</span><span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb12-11" data-line-number="11">    <span class="dt">check.names =</span> <span class="ot">FALSE</span></a>
-<a class="sourceLine" id="cb12-12" data-line-number="12">  )</a>
-<a class="sourceLine" id="cb12-13" data-line-number="13">  </a>
-<a class="sourceLine" id="cb12-14" data-line-number="14">  ans<span class="op">$</span>IQR &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/with.html">with</a></span>(ans, p75 <span class="op">-</span><span class="st"> </span>p25)</a>
-<a class="sourceLine" id="cb12-15" data-line-number="15">  ans</a>
-<a class="sourceLine" id="cb12-16" data-line-number="16">  </a>
-<a class="sourceLine" id="cb12-17" data-line-number="17">}) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb12-18" data-line-number="18"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span>(rbind, .) </a>
-<a class="sourceLine" id="cb12-19" data-line-number="19"></a>
-<a class="sourceLine" id="cb12-20" data-line-number="20">sum_stats04[<span class="kw"><a href="https://rdrr.io/r/base/with.html">with</a></span>(sum_stats04, <span class="kw"><a href="https://rdrr.io/r/base/order.html">order</a></span>(<span class="st">`</span><span class="dt">% Miss</span><span class="st">`</span>, <span class="op">-</span>Variance)),] <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb12-21" data-line-number="21"><span class="st">  </span>knitr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="dt">digits=</span><span class="dv">2</span>)</a></code></pre></div>
-<table class="table">
-<thead><tr class="header">
-<th></th>
-<th align="left">Statistic</th>
-<th align="right">% Miss</th>
-<th align="right">Variance</th>
-<th align="right">Min</th>
-<th align="right">Max</th>
-<th align="right">p25</th>
-<th align="right">p75</th>
-<th align="right">IQR</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td>distance1</td>
-<td align="left">dennis</td>
-<td align="right">0</td>
-<td align="right">1.05</td>
-<td align="right">-4.47</td>
-<td align="right">5.72</td>
-<td align="right">-0.70</td>
-<td align="right">0.67</td>
-<td align="right">1.37</td>
-</tr>
-<tr class="even">
-<td>distance6</td>
-<td align="left">dyuleq</td>
-<td align="right">0</td>
-<td align="right">0.18</td>
-<td align="right">0.00</td>
-<td align="right">2.00</td>
-<td align="right">0.67</td>
-<td align="right">1.33</td>
-<td align="right">0.67</td>
-</tr>
-<tr class="odd">
-<td>similarity12</td>
-<td align="left">syuleq</td>
-<td align="right">0</td>
-<td align="right">0.18</td>
-<td align="right">-1.00</td>
-<td align="right">1.00</td>
-<td align="right">-0.33</td>
-<td align="right">0.33</td>
-<td align="right">0.67</td>
-</tr>
-<tr class="even">
-<td>similarity8</td>
-<td align="left">smichael</td>
-<td align="right">0</td>
-<td align="right">0.15</td>
-<td align="right">-1.00</td>
-<td align="right">0.99</td>
-<td align="right">-0.31</td>
-<td align="right">0.31</td>
-<td align="right">0.62</td>
-</tr>
-<tr class="odd">
-<td>similarity13</td>
-<td align="left">syuleqw</td>
-<td align="right">0</td>
-<td align="right">0.07</td>
-<td align="right">-1.00</td>
-<td align="right">1.00</td>
-<td align="right">-0.17</td>
-<td align="right">0.17</td>
-<td align="right">0.34</td>
-</tr>
-<tr class="even">
-<td>similarity10</td>
-<td align="left">sph1</td>
-<td align="right">0</td>
-<td align="right">0.05</td>
-<td align="right">-1.00</td>
-<td align="right">1.00</td>
-<td align="right">-0.17</td>
-<td align="right">0.17</td>
-<td align="right">0.33</td>
-</tr>
-<tr class="odd">
-<td>similarity1</td>
-<td align="left">sanderberg</td>
-<td align="right">0</td>
-<td align="right">0.04</td>
-<td align="right">0.00</td>
-<td align="right">2.00</td>
-<td align="right">0.00</td>
-<td align="right">0.20</td>
-<td align="right">0.20</td>
-</tr>
-<tr class="even">
-<td>similarity6</td>
-<td align="left">shamann</td>
-<td align="right">0</td>
-<td align="right">0.04</td>
-<td align="right">-0.60</td>
-<td align="right">1.00</td>
-<td align="right">0.40</td>
-<td align="right">0.60</td>
-<td align="right">0.20</td>
-</tr>
-<tr class="odd">
-<td>similarity4</td>
-<td align="left">sgk</td>
-<td align="right">0</td>
-<td align="right">0.03</td>
-<td align="right">-2.00</td>
-<td align="right">0.00</td>
-<td align="right">-0.17</td>
-<td align="right">0.00</td>
-<td align="right">0.17</td>
-</tr>
-<tr class="even">
-<td>similarity7</td>
-<td align="left">sjaccard</td>
-<td align="right">0</td>
-<td align="right">0.02</td>
-<td align="right">0.00</td>
-<td align="right">1.00</td>
-<td align="right">0.25</td>
-<td align="right">0.41</td>
-<td align="right">0.16</td>
-</tr>
-<tr class="odd">
-<td>distance4</td>
-<td align="left">dsd</td>
-<td align="right">0</td>
-<td align="right">0.01</td>
-<td align="right">0.00</td>
-<td align="right">1.00</td>
-<td align="right">0.16</td>
-<td align="right">0.36</td>
-<td align="right">0.20</td>
-</tr>
-<tr class="even">
-<td>distance2</td>
-<td align="left">dhamming</td>
-<td align="right">0</td>
-<td align="right">0.01</td>
-<td align="right">0.00</td>
-<td align="right">1.00</td>
-<td align="right">0.40</td>
-<td align="right">0.60</td>
-<td align="right">0.20</td>
-</tr>
-<tr class="odd">
-<td>distance3</td>
-<td align="left">dmh</td>
-<td align="right">0</td>
-<td align="right">0.01</td>
-<td align="right">0.00</td>
-<td align="right">1.00</td>
-<td align="right">0.40</td>
-<td align="right">0.60</td>
-<td align="right">0.20</td>
-</tr>
-<tr class="even">
-<td>similarity5</td>
-<td align="left">sgl</td>
-<td align="right">0</td>
-<td align="right">0.01</td>
-<td align="right">0.00</td>
-<td align="right">1.00</td>
-<td align="right">0.57</td>
-<td align="right">0.75</td>
-<td align="right">0.18</td>
-</tr>
-<tr class="odd">
-<td>similarity3</td>
-<td align="left">sfaith</td>
-<td align="right">0</td>
-<td align="right">0.01</td>
-<td align="right">0.00</td>
-<td align="right">0.82</td>
-<td align="right">0.30</td>
-<td align="right">0.42</td>
-<td align="right">0.12</td>
-</tr>
-<tr class="even">
-<td>similarity11</td>
-<td align="left">starwid</td>
-<td align="right">0</td>
-<td align="right">0.01</td>
-<td align="right">-1.00</td>
-<td align="right">-0.03</td>
-<td align="right">-0.66</td>
-<td align="right">-0.56</td>
-<td align="right">0.10</td>
-</tr>
-<tr class="odd">
-<td>similarity2</td>
-<td align="left">sdisp</td>
-<td align="right">0</td>
-<td align="right">0.00</td>
-<td align="right">-0.25</td>
-<td align="right">0.25</td>
-<td align="right">-0.04</td>
-<td align="right">0.04</td>
-<td align="right">0.08</td>
-</tr>
-<tr class="even">
-<td>distance5</td>
-<td align="left">dsphd</td>
-<td align="right">0</td>
-<td align="right">0.00</td>
-<td align="right">-0.35</td>
-<td align="right">0.25</td>
-<td align="right">0.08</td>
-<td align="right">0.12</td>
-<td align="right">0.04</td>
-</tr>
-<tr class="odd">
-<td>similarity9</td>
-<td align="left">speirce</td>
-<td align="right">0</td>
-<td align="right">0.02</td>
-<td align="right">0.00</td>
-<td align="right">1.00</td>
-<td align="right">0.42</td>
-<td align="right">0.58</td>
-<td align="right">0.16</td>
-</tr>
-</tbody>
-</table>
 </div>
   </div>
 
@@ -948,8 +480,6 @@
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#introduction">Introduction</a></li>
       <li><a href="#powerset-of-3">Powerset of 3</a></li>
-      <li><a href="#powerset-of-4-sample-of-it">Powerset of 4 (sample of it)</a></li>
-      <li><a href="#simulation-of-size-5">Simulation of size 5</a></li>
       </ul>
 </div>
       </div>
