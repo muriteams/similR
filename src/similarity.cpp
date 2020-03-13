@@ -1,5 +1,6 @@
 #include <Rcpp.h>
 #include <unordered_map>
+#include "getmetric.h"
 using namespace Rcpp;
 
 #define a 0
@@ -10,10 +11,7 @@ using namespace Rcpp;
 #define col_count 5
 
 // All statistics are stored in a map
-typedef double (*funcPtr)(
-    const std::vector< double > & table,
-    bool normalized
-);
+// typedef double (*funcPtr)(const std::vector< double > & table, bool normalized);
 
 
 template<typename T>
@@ -174,6 +172,7 @@ double sdice(
 //' @rdname similarity
 //' @section Similarity:
 //' - 3w-jaccard (4): `"s3wjaccard"`
+//' @aliases 3W-jaccard
 double s3wjaccard(
     const std::vector< double > & table,
     bool normalized = false
@@ -182,8 +181,44 @@ double s3wjaccard(
     (3.0 * table[a] + table[b] + table[c]);
 }
 
+//' @name similarity
+//' @rdname similarity
+//' @section Similarity:
+//' - Sokal & Michener (7): `"ssokmich"` or `"sokmich"`
+//' @aliases Sokal-&-Michener
+double ssokmich(
+    const std::vector< double > & table,
+    bool normalized = false
+) {
+  return (table[a] + table[d])/
+    (table[a] + table[b] + table[c] + table[d]);
+}
 
+//' @name similarity
+//' @rdname similarity
+//' @section Similarity:
+//' - Sokal & Sneath II (8): `"ssoksne"` or `"soksne"`
+//' @aliases Sokal-&-Sneath-II
+double ssoksne(
+    const std::vector< double > & table,
+    bool normalized = false
+) {
+  return 2.0 * (table[a] + table[d])/
+    (2.0 * table[a] + table[b] + table[c] + 2.0 * table[d]);
+}
 
+//' @name similarity
+//' @rdname similarity
+//' @section Similarity:
+//' - Roger & Tanimoto (9): `"roger&tanimoto"` or `"sroger&tanimoto"`
+//' @aliases Roger-&-Tanimoto
+double srogtan(
+    const std::vector< double > & table,
+    bool normalized = false
+) {
+  return (table[a] + table[d])/
+    (table[a] + 2.0 * (table[b] + table[c]) + table[d]);
+}
 
 //' @name similarity
 //' @rdname similarity
@@ -228,9 +263,24 @@ double srusrao(
 //' @name similarity
 //' @rdname similarity
 //' @section Distance:
-//' - Sized Difference (24): `"dsd"` or `"sd"`
+//' - Vari (23): `"dvari"` or `"vari"`
+//' @aliases VARI
+double dvari(
+    const std::vector< double > & table,
+    bool normalized = false
+) {
+  
+  return (table[b] + table[c])/
+    4.0 * (table[a] + table[b] + table[c] + table[d]);
+  
+}
+
+//' @name similarity
+//' @rdname similarity
+//' @section Distance:
+//' - Sized Difference (24): `"dsizedif"` or `"sizedif"`
 //' @aliases Sized-Difference
-double dsd(
+double dsizedif(
     const std::vector< double > & table,
     bool normalized = false
 ) {
@@ -251,6 +301,21 @@ double dsphd(
   ) {
   
   return (table[row_count] * (table[b] + table[c]) - pow(table[b] - table[c], 2.0))/
+    pow(table[a] + table[b] + table[c] + table[d], 2.0);
+  
+}
+
+//' @name similarity
+//' @rdname similarity
+//' @section Distance:
+//' - Pattern Difference (26): `"dpattdif"` or `"pattdif"`
+//' @aliases Pattern-Difference
+double dpattdif(
+    const std::vector< double > & table,
+    bool normalized = false
+) {
+  
+  return 4.0 * (table[b] * table[c])/
     pow(table[a] + table[b] + table[c] + table[d], 2.0);
   
 }
@@ -321,15 +386,15 @@ double dhamming(
 
 //' @name similarity
 //' @rdname similarity
-//' @section Similarity:
-//' -  Mean Manhattan (20): `"dmh"` or `"mh"`
+//' @section Distance:
+//' - Mean Manhattan (20): `"dmeanman"` or `"meamman"`
 //'    \deqn{%
 //'      D_{Mean-manhattan} = \frac{b + c}{a + b + c + d}
 //'    }{%
 //'     dmh = (b + c)/(a + b + c + d)
 //'    }
 //' @aliases Mean-Manhattan
-double dmh(
+double dmeanman(
     const std::vector< double > & table,
     bool normalized = false
 ) {
@@ -373,8 +438,8 @@ double syuleq(
 //' @name similarity
 //' @rdname similarity
 //' @section Similarity:
-//' - Yuleq (63): `"syuleqw"`
-//' @aliases Yuleq
+//' - Yuleq similarity (63): `"syuleqw"`
+//' @aliases Yuleq-similarity
 double syuleqw(
     const std::vector< double > & table,
     bool normalized = false
@@ -388,8 +453,8 @@ double syuleqw(
 //' @name similarity
 //' @rdname similarity
 //' @section Distance:
-//' - Yuleq (62): `"dyuleq"`
-//' @aliases Yuleq
+//' - Yuleq distance (62): `"dyuleq"`
+//' @aliases Yuleq-distance
 double dyuleq(
   const std::vector< double > & table,
   bool normalized = false
@@ -537,10 +602,6 @@ double sanderberg(
   
 }
 
-
-
-
-
 //' @name similarity
 //' @rdname similarity
 //' @section Similarity:
@@ -565,10 +626,11 @@ double speirce(
 
 //' @name similarity
 //' @rdname similarity
-//' @aliases Fscore
 //' @section Similarity: 
 //' In the case of `fscore`, ask Kyosuke Tanaka.
-double fscore(
+//' - FScore (00): `"fscore"` or `"sfscore"`
+//' @aliases Fscore
+double sfscore(
     const std::vector< double > & table,
     bool normalized = false
 ) {
@@ -629,11 +691,12 @@ IntegerMatrix reduce_dim(IntegerMatrix & x, int k) {
   
 }
 
-void getmetric(std::string s, funcPtr & fun) {
+/*void getmetric(std::string s, funcPtr & fun) {
   
   if      ((s == "sjaccard") | (s == "jaccard"))      fun = &sjaccard;
   else if ((s == "sdice") | (s == "sczekanowsk") | (s == "sneili")) fun = &sdice;
   else if ((s == "s3wjaccard") | (s == "3wjaccard"))  fun = &s3wjaccard;
+  else if ((s == "rogtan") | (s == "srogtan"))        fun = &srogtan;
   else if ((s == "sfaith") | (s == "faith"))          fun = &sfaith;
   else if ((s == "sgl") | (s == "gl"))                fun = &sgl;
   else if ((s == "srusrao") | (s == "rusrao"))        fun = &srusrao;
@@ -650,14 +713,14 @@ void getmetric(std::string s, funcPtr & fun) {
   else if ((s == "sanderberg") | (s == "anderberg"))  fun = &sanderberg;
   else if ((s == "shamann") | (s == "hamann"))        fun = &shamann;
   else if ((s == "dmh") | (s == "mh"))                fun = &dmh;
-  else if ((s == "dsd") | (s == "sd"))                fun = &dsd;
+  else if ((s == "dsizedif") | (s == "sizedif"))      fun = &dsizedif;
   else if ((s == "dsphd") | (s == "sphd"))            fun = &dsphd;
   else if ((s == "sdisp") | (s == "disp"))            fun = &sdisp;
   else if ((s == "fscore") | (s == "Fscore"))         fun = &fscore;
   else Rcpp::stop("The statistic '%s' is not defined.", s);
   
   return ;
-}
+}*/
 
 // Applies whatever similarity/distance metric should be applying to all the
 // requested combinations

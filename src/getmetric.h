@@ -1,0 +1,64 @@
+#ifndef SIMILR_GETMETRIC
+#define SIMILR_GETMETRIC 1
+typedef double (*funcPtr)(const std::vector< double > & table, bool normalized);
+double sjaccard(const std::vector< double > & table, bool normalize);
+double sdice(const std::vector< double > & table, bool normalize);
+double s3wjaccard(const std::vector< double > & table, bool normalize);
+double ssokmich(const std::vector< double > & table, bool normalize);
+double ssoksne(const std::vector< double > & table, bool normalize);
+double srogtan(const std::vector< double > & table, bool normalize);
+double sfaith(const std::vector< double > & table, bool normalize);
+double sgl(const std::vector< double > & table, bool normalize);
+double srusrao(const std::vector< double > & table, bool normalize);
+double dvari(const std::vector< double > & table, bool normalize);
+double dsizedif(const std::vector< double > & table, bool normalize);
+double dsphd(const std::vector< double > & table, bool normalize);
+double dpattdif(const std::vector< double > & table, bool normalize);
+double starwid(const std::vector< double > & table, bool normalize);
+double sph1(const std::vector< double > & table, bool normalize);
+double dhamming(const std::vector< double > & table, bool normalize);
+double dmeanman(const std::vector< double > & table, bool normalize);
+double sdennis(const std::vector< double > & table, bool normalize);
+double syuleq(const std::vector< double > & table, bool normalize);
+double syuleqw(const std::vector< double > & table, bool normalize);
+double dyuleq(const std::vector< double > & table, bool normalize);
+double smichael(const std::vector< double > & table, bool normalize);
+double sdisp(const std::vector< double > & table, bool normalize);
+double shamann(const std::vector< double > & table, bool normalize);
+double sgk(const std::vector< double > & table, bool normalize);
+double sanderberg(const std::vector< double > & table, bool normalize);
+double speirce(const std::vector< double > & table, bool normalize);
+double sfscore(const std::vector< double > & table, bool normalize);
+void getmetric(std::string s, funcPtr & fun) {
+   if ((s == "sjaccard") | (s == "jaccard")) fun = &sjaccard;
+   else if ((s == "sdice") | (s == "sczekanowsk") | (s == "sneili")) fun = &sdice;
+   else if ((s == "s3wjaccard")) fun = &s3wjaccard;
+   else if ((s == "ssokmich") | (s == "sokmich")) fun = &ssokmich;
+   else if ((s == "ssoksne") | (s == "soksne")) fun = &ssoksne;
+   else if ((s == "roger&tanimoto") | (s == "sroger&tanimoto")) fun = &srogtan;
+   else if ((s == "sfaith") | (s == "faith")) fun = &sfaith;
+   else if ((s == "sgl") | (s == "gl")) fun = &sgl;
+   else if ((s == "srusrao")) fun = &srusrao;
+   else if ((s == "dvari") | (s == "vari")) fun = &dvari;
+   else if ((s == "dsizedif") | (s == "sizedif")) fun = &dsizedif;
+   else if ((s == "dsphd") | (s == "sphd")) fun = &dsphd;
+   else if ((s == "dpattdif") | (s == "pattdif")) fun = &dpattdif;
+   else if ((s == "starwid") | (s == "tarwid")) fun = &starwid;
+   else if ((s == "sph1") | (s == "ph1") | (s == "s14")) fun = &sph1;
+   else if ((s == "dhamming") | (s == "hamming")) fun = &dhamming;
+   else if ((s == "dmeanman") | (s == "meamman")) fun = &dmeanman;
+   else if ((s == "sdennis") | (s == "dennis")) fun = &sdennis;
+   else if ((s == "syuleq")) fun = &syuleq;
+   else if ((s == "syuleqw")) fun = &syuleqw;
+   else if ((s == "dyuleq")) fun = &dyuleq;
+   else if ((s == "smichael") | (s == "michael")) fun = &smichael;
+   else if ((s == "sdisp") | (s == "disp")) fun = &sdisp;
+   else if ((s == "shamann") | (s == "hamann")) fun = &shamann;
+   else if ((s == "sgk") | (s == "gk")) fun = &sgk;
+   else if ((s == "sanderberg") | (s == "anderberg")) fun = &sanderberg;
+   else if ((s == "speirce") | (s == "peirce")) fun = &speirce;
+   else if ((s == "fscore") | (s == "sfscore")) fun = &sfscore;
+   else Rcpp::stop("The statistic '%s' is not defined.", s);
+   return;
+}
+#endif

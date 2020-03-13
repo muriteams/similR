@@ -4,11 +4,17 @@
 \alias{similarity}
 \alias{Jaccard}
 \alias{Sorensen-Dice}
+\alias{3W-jaccard}
+\alias{Sokal-&-Michener}
+\alias{Sokal-&-Sneath-II}
+\alias{Roger-&-Tanimoto}
 \alias{Faith}
 \alias{Gower-&-Legendre}
 \alias{Rusell-&-Rao}
+\alias{VARI}
 \alias{Sized-Difference}
 \alias{Shape-Difference}
+\alias{Pattern-Difference}
 \alias{Tarwid}
 \alias{Person-&-Heron}
 \alias{S14}
@@ -16,6 +22,8 @@
 \alias{Mean-Manhattan}
 \alias{Dennis}
 \alias{Yuleq}
+\alias{Yuleq-similarity}
+\alias{Yuleq-distance}
 \alias{Michael}
 \alias{Dispersion}
 \alias{Hamann}
@@ -121,6 +129,21 @@ and \strong{Distance} sections.
 
 
 \itemize{
+\item Sokal & Michener (7): \code{"ssokmich"} or \code{"sokmich"}
+}
+
+
+\itemize{
+\item Sokal & Sneath II (8): \code{"ssoksne"} or \code{"soksne"}
+}
+
+
+\itemize{
+\item Roger & Tanimoto (9): \code{"roger&tanimoto"} or \code{"sroger&tanimoto"}
+}
+
+
+\itemize{
 \item Faith (10): \code{"sfaith"} or \code{"faith"}
 }
 
@@ -157,16 +180,6 @@ Which is an statistic lying between 0 and 1.
 
 
 \itemize{
-\item Mean Manhattan (20): \code{"dmh"} or \code{"mh"}
-\deqn{%
-     D_{Mean-manhattan} = \frac{b + c}{a + b + c + d}
-   }{%
-    dmh = (b + c)/(a + b + c + d)
-   }
-}
-
-
-\itemize{
 \item Dennis (44): \code{"sdennis"} or \code{"dennis"}
 }
 
@@ -177,7 +190,7 @@ Which is an statistic lying between 0 and 1.
 
 
 \itemize{
-\item Yuleq (63): \code{"syuleqw"}
+\item Yuleq similarity (63): \code{"syuleqw"}
 }
 
 
@@ -258,12 +271,20 @@ where \eqn{\sigma}{s} and \eqn{\sigma}{s'} are defined as in (69).
 
 
 In the case of \code{fscore}, ask Kyosuke Tanaka.
+\itemize{
+\item FScore (00): \code{"fscore"} or \code{"sfscore"}
+}
 }
 
 \section{Distance}{
 
 \itemize{
-\item Sized Difference (24): \code{"dsd"} or \code{"sd"}
+\item Vari (23): \code{"dvari"} or \code{"vari"}
+}
+
+
+\itemize{
+\item Sized Difference (24): \code{"dsizedif"} or \code{"sizedif"}
 }
 
 
@@ -273,12 +294,27 @@ In the case of \code{fscore}, ask Kyosuke Tanaka.
 
 
 \itemize{
+\item Pattern Difference (26): \code{"dpattdif"} or \code{"pattdif"}
+}
+
+
+\itemize{
 \item Hamming (15): \code{"dhamming"} or \code{"hamming"}
 }
 
 
 \itemize{
-\item Yuleq (62): \code{"dyuleq"}
+\item Mean Manhattan (20): \code{"dmeanman"} or \code{"meamman"}
+\deqn{%
+     D_{Mean-manhattan} = \frac{b + c}{a + b + c + d}
+   }{%
+    dmh = (b + c)/(a + b + c + d)
+   }
+}
+
+
+\itemize{
+\item Yuleq distance (62): \code{"dyuleq"}
 }
 }
 

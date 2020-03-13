@@ -46,6 +46,28 @@ NULL
 #' @rdname similarity
 #' @section Similarity:
 #' - 3w-jaccard (4): `"s3wjaccard"`
+#' @aliases 3W-jaccard
+NULL
+
+#' @name similarity
+#' @rdname similarity
+#' @section Similarity:
+#' - Sokal & Michener (7): `"ssokmich"` or `"sokmich"`
+#' @aliases Sokal-&-Michener
+NULL
+
+#' @name similarity
+#' @rdname similarity
+#' @section Similarity:
+#' - Sokal & Sneath II (8): `"ssoksne"` or `"soksne"`
+#' @aliases Sokal-&-Sneath-II
+NULL
+
+#' @name similarity
+#' @rdname similarity
+#' @section Similarity:
+#' - Roger & Tanimoto (9): `"roger&tanimoto"` or `"sroger&tanimoto"`
+#' @aliases Roger-&-Tanimoto
 NULL
 
 #' @name similarity
@@ -72,7 +94,14 @@ NULL
 #' @name similarity
 #' @rdname similarity
 #' @section Distance:
-#' - Sized Difference (24): `"dsd"` or `"sd"`
+#' - Vari (23): `"dvari"` or `"vari"`
+#' @aliases VARI
+NULL
+
+#' @name similarity
+#' @rdname similarity
+#' @section Distance:
+#' - Sized Difference (24): `"dsizedif"` or `"sizedif"`
 #' @aliases Sized-Difference
 NULL
 
@@ -81,6 +110,13 @@ NULL
 #' @section Distance:
 #' - Shaped Difference (25): `"dsphd"` or `"sphd"`
 #' @aliases Shape-Difference
+NULL
+
+#' @name similarity
+#' @rdname similarity
+#' @section Distance:
+#' - Pattern Difference (26): `"dpattdif"` or `"pattdif"`
+#' @aliases Pattern-Difference
 NULL
 
 #' @name similarity
@@ -119,8 +155,8 @@ NULL
 
 #' @name similarity
 #' @rdname similarity
-#' @section Similarity:
-#' -  Mean Manhattan (20): `"dmh"` or `"mh"`
+#' @section Distance:
+#' - Mean Manhattan (20): `"dmeanman"` or `"meamman"`
 #'    \deqn{%
 #'      D_{Mean-manhattan} = \frac{b + c}{a + b + c + d}
 #'    }{%
@@ -146,15 +182,15 @@ NULL
 #' @name similarity
 #' @rdname similarity
 #' @section Similarity:
-#' - Yuleq (63): `"syuleqw"`
-#' @aliases Yuleq
+#' - Yuleq similarity (63): `"syuleqw"`
+#' @aliases Yuleq-similarity
 NULL
 
 #' @name similarity
 #' @rdname similarity
 #' @section Distance:
-#' - Yuleq (62): `"dyuleq"`
-#' @aliases Yuleq
+#' - Yuleq distance (62): `"dyuleq"`
+#' @aliases Yuleq-distance
 NULL
 
 #' @name similarity
@@ -250,9 +286,10 @@ NULL
 
 #' @name similarity
 #' @rdname similarity
-#' @aliases Fscore
 #' @section Similarity: 
 #' In the case of `fscore`, ask Kyosuke Tanaka.
+#' - FScore (00): `"fscore"` or `"sfscore"`
+#' @aliases Fscore
 NULL
 
 #' Contingency Table
