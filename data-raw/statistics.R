@@ -52,4 +52,32 @@ statistics <- data.frame(
 statistics$alias <- gsub("\"", "", statistics$alias)
 statistics
 
+# Tagging those that are always defined (normalized by non-0)
+well_defined <- c(
+  "ssokmich",
+  "ssoksne",
+  "srogtan",
+  "sfaith",
+  "sgowleg",
+  "srusrao",
+  "dvari",
+  "dsizedif",
+  "dsphdif",
+  "dpattdif",
+  "dhamming",
+  "dmeanman",
+  "smichael",
+  "sdisp",
+  "shamann",
+  "sanderberg",
+  "roger&tanimoto",
+  "sgookrus"
+  # For social networks (zero in diagonal)
+  
+  )
+
+statistics$well_defined <- FALSE
+statistics[statistics$alias %in% well_defined,]$well_defined <- TRUE
+
+
 usethis::use_data(statistics, overwrite = TRUE)

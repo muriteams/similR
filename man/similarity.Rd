@@ -3,7 +3,7 @@
 \name{similarity}
 \alias{similarity}
 \alias{Jaccard}
-\alias{Sorensen-Dice}
+\alias{Dice}
 \alias{3W-jaccard}
 \alias{Sokal-&-Michener}
 \alias{Sokal-&-Sneath-II}
@@ -41,7 +41,7 @@ similarity(
   statistic,
   normalized = TRUE,
   firstonly = FALSE,
-  include_self = FALSE,
+  include_diagonal = FALSE,
   exclude_j = FALSE
 )
 
@@ -51,7 +51,7 @@ similarity(
   statistic,
   normalized = TRUE,
   firstonly = FALSE,
-  include_self = FALSE,
+  include_diagonal = FALSE,
   exclude_j = FALSE
 )
 
@@ -61,7 +61,7 @@ similarity(
   statistic,
   normalized = TRUE,
   firstonly = FALSE,
-  include_self = FALSE,
+  include_diagonal = FALSE,
   exclude_j = FALSE
 )
 }
@@ -79,7 +79,7 @@ which ranges between 0 and 1 (currently only used in \code{statistic="hamming"})
 \item{firstonly}{Logical. When \code{TRUE}, the comparison is done as the first
 matrix to all only.}
 
-\item{include_self}{Logical. When set to \code{TRUE}, the diagonal is considered
+\item{include_diagonal}{Logical. When set to \code{TRUE}, the diagonal is considered
 in the calculations. Since most calculations are done in the context of social
 networks, the default is set to \code{FALE}.}
 
@@ -119,7 +119,7 @@ and \strong{Distance} sections.
 
 
 \itemize{
-\item Sørensen–Dice coefficient (2), Sczekanowsk (3), Nei \& Li (5): \code{"sdice"} or \code{"sczekanowsk"} or \code{"sneili"}
+\item Dice coefficient (2), Sczekanowsk (3), Nei \& Li (5): \code{"sdice"} or \code{"sczekanowsk"} or \code{"sneili"}
 }
 
 
@@ -149,7 +149,7 @@ and \strong{Distance} sections.
 
 
 \itemize{
-\item Gower and Legendre (11): \code{"sgl"} or \code{"gl"}
+\item Gower and Legendre (11): \code{"sgowleg"} or \code{"gowleg"}
 }
 
 
@@ -228,7 +228,7 @@ Which is an statistic lying between 0 and 1.
 
 
 \itemize{
-\item Goodman & Kruskal (69): \code{"sgk"} or \code{"gk"}
+\item Goodman & Kruskal (69): \code{"sgookrus"} or \code{"gookrus"}
 
 \deqn{%
      S_{Goodman \& Kruskal} = \frac{\sigma - \sigma'}{2n - \sigma'} 
@@ -289,7 +289,7 @@ In the case of \code{fscore}, ask Kyosuke Tanaka.
 
 
 \itemize{
-\item Shaped Difference (25): \code{"dsphd"} or \code{"sphd"}
+\item Shaped Difference (25): \code{"dsphdif"} or \code{"sphdif"}
 }
 
 

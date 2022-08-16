@@ -9,7 +9,7 @@
 #' which ranges between 0 and 1 (currently only used in `statistic="hamming"`).
 #' @param firstonly Logical. When `TRUE`, the comparison is done as the first
 #' matrix to all only.
-#' @param include_self Logical. When set to `TRUE`, the diagonal is considered
+#' @param include_diagonal Logical. When set to `TRUE`, the diagonal is considered
 #' in the calculations. Since most calculations are done in the context of social
 #' networks, the default is set to `FALE`.
 #' @param exclude_j Logical. When `TRUE`, the comparison between matrices `i` and
@@ -69,7 +69,7 @@ similarity <- function(
   statistic,
   normalized = TRUE,
   firstonly  = FALSE,
-  include_self = FALSE,
+  include_diagonal = FALSE,
   exclude_j  = FALSE
   )
   UseMethod("similarity")
@@ -82,7 +82,7 @@ similarity.list <- function(
   statistic,
   normalized = TRUE,
   firstonly  = FALSE,
-  include_self = FALSE,
+  include_diagonal = FALSE,
   exclude_j  = FALSE
   ) {
   
@@ -99,7 +99,7 @@ similarity.list <- function(
     statistic    = statistic,
     normalized   = normalized,
     firstonly    = firstonly,
-    include_self = include_self,
+    include_diagonal = include_diagonal,
     exclude_j    = exclude_j
     )
   
@@ -116,7 +116,7 @@ similarity.matrix <- function(
   statistic,
   normalized   = TRUE,
   firstonly    = FALSE,
-  include_self = FALSE,
+  include_diagonal = FALSE,
   exclude_j    = FALSE
 ) {
   
@@ -128,7 +128,7 @@ similarity.matrix <- function(
       )
   
   similarity(M = c(list(M), dots), statistic=statistic, normalized=normalized,
-             firstonly = firstonly, include_self = include_self,
+             firstonly = firstonly, include_diagonal = include_diagonal,
              exclude_j = exclude_j)
   
 }

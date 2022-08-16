@@ -5,8 +5,12 @@
 \alias{powerset03}
 \alias{powerset04}
 \title{Power sets of matrices of size 3 and 4}
-\format{A List of integer matrices of size 3x3 (\code{powerset03}), and 4x4
-(\code{powerset04}).}
+\format{
+A List of integer matrices of size 3x3 (\code{powerset03}), and 4x4
+(\code{powerset04}).
+
+An object of class \code{list} of length 4096.
+}
 \usage{
 powerset03
 

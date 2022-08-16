@@ -31,7 +31,7 @@ void contingency_matrix(
     std::vector<Ti> & table,
     const Tm & M1,
     const Tm & M2,
-    bool include_self,
+    bool include_diagonal,
     const vecint & exclude
   ) {
   
@@ -68,7 +68,7 @@ void contingency_matrix(
     
     for (auto j = colidx.begin(); j != colidx.end(); ++j) {
       
-      if (!include_self && *i == *j)
+      if (!include_diagonal && *i == *j)
         continue;
       
       else {
@@ -85,11 +85,11 @@ void contingency_matrix(
 
 template<typename Ti, typename Tm> inline
 std::vector<Ti> contingency_matrix(
-    const Tm & M1, const Tm & M2, bool include_self, const vecint & exclude
+    const Tm & M1, const Tm & M2, bool include_diagonal, const vecint & exclude
   ) {
   
   std::vector<Ti> table(6);
-  contingency_matrix< Ti, Tm >(table, M1, M2, include_self, exclude);
+  contingency_matrix< Ti, Tm >(table, M1, M2, include_diagonal, exclude);
   
   return table;
   
@@ -97,7 +97,7 @@ std::vector<Ti> contingency_matrix(
 
 //' Contingency Table
 //' @param M1,M2 Two integer matrices of the same size.
-//' @param include_self Logical scalar. When `TRUE` the diagonal is
+//' @param include_diagonal Logical scalar. When `TRUE` the diagonal is
 //' included in the calculation.
 //' @param exclude Integer vector. List of indices to include
 //' during the calculation. For example, if individual 2 needs
@@ -110,7 +110,7 @@ std::vector<Ti> contingency_matrix(
 IntegerMatrix contingency_matrix(
     const IntegerMatrix & M1,
     const IntegerMatrix & M2,
-    bool include_self,
+    bool include_diagonal,
     const std::vector< int > & exclude
 ) {
   
@@ -125,7 +125,7 @@ IntegerMatrix contingency_matrix(
     (*i) -= 1;
   
   std::vector<double> table = contingency_matrix<double, IntegerMatrix>(
-    M1, M2, include_self, exclude0
+    M1, M2, include_diagonal, exclude0
     );
   
   IntegerMatrix ans(2,2);
@@ -157,8 +157,8 @@ double sjaccard(
 //' @name similarity
 //' @rdname similarity
 //' @section Similarity:
-//' - Sørensen–Dice coefficient (2), Sczekanowsk (3), Nei \& Li (5): `"sdice"` or `"sczekanowsk"` or `"sneili"`
-//' @aliases Sorensen-Dice
+//' - Dice coefficient (2), Sczekanowsk (3), Nei \& Li (5): `"sdice"` or `"sczekanowsk"` or `"sneili"`
+//' @aliases Dice
 double sdice(
     const std::vector< double > & table,
     bool normalized = false
@@ -237,9 +237,9 @@ double sfaith(
 //' @name similarity
 //' @rdname similarity
 //' @section Similarity:
-//' - Gower and Legendre (11): `"sgl"` or `"gl"`
+//' - Gower and Legendre (11): `"sgowleg"` or `"gowleg"`
 //' @aliases Gower-&-Legendre
-double sgl(
+double sgowleg(
     const std::vector< double > & table,
     bool normalized = false
 ) {
@@ -293,9 +293,9 @@ double dsizedif(
 //' @name similarity
 //' @rdname similarity
 //' @section Distance:
-//' - Shaped Difference (25): `"dsphd"` or `"sphd"`
+//' - Shaped Difference (25): `"dsphdif"` or `"sphdif"`
 //' @aliases Shape-Difference
-double dsphd(
+double dsphdif(
     const std::vector< double > & table,
     bool normalized = false
   ) {
@@ -547,7 +547,7 @@ inline double sigma_prime(const std::vector< T > & table) {
 //' @name similarity
 //' @rdname similarity
 //' @section Similarity:
-//' -  Goodman & Kruskal (69): `"sgk"` or `"gk"`
+//' -  Goodman & Kruskal (69): `"sgookrus"` or `"gookrus"`
 //'    
 //'    \deqn{%
 //'      S_{Goodman \& Kruskal} = \frac{\sigma - \sigma'}{2n - \sigma'} 
@@ -564,7 +564,7 @@ inline double sigma_prime(const std::vector< T > & table) {
 //'    }
 //'   
 //' @aliases Goodman-&-Kruskal
-double sgk(
+double sgookrus(
     const std::vector< double > & table,
     bool normalized = false
 ) {
@@ -730,7 +730,7 @@ NumericMatrix similarity(
     const std::vector< std::string > & statistic,
     bool normalized   = false,
     bool firstonly    = false,
-    bool include_self = false,
+    bool include_diagonal = false,
     bool exclude_j    = false
 ) {
   
@@ -764,7 +764,7 @@ NumericMatrix similarity(
       J[pos] = j + 1;
       
       // Computing contingency table, this will be used for all measurements.
-      contingency_matrix(ctable, M[i], M[j], include_self, exclude);
+      contingency_matrix(ctable, M[i], M[j], include_diagonal, exclude);
       
       for (auto fname = statistic.begin(); fname != statistic.end(); ++fname) {
         

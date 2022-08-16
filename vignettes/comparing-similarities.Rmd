@@ -72,12 +72,12 @@ ggplot(res, aes(x=a, y=b, fill=corr))+
 ```
 
 ```{r summary-stats-03}
-lapply(3:ncol(all03), function(i) {
+ans <- lapply(3:ncol(all03), function(i) {
 
   ans <- data.frame(
     Statistic = colnames(all03)[i],
     `% Miss`    = sum(!is.finite(all03[,i]))/length(all03[,i])*100,
-    `Variance`  = var(all03[,i], na.rm=TRUE),
+    `Variance`  = var(all03[,i]/diff(range(all03[,i], na.rm = TRUE)), na.rm=TRUE),
     `Min`       = min(all03[,i], na.rm=TRUE),
     `Max`       = max(all03[,i], na.rm=TRUE),
     `p25`       = quantile(all03[,i], .25, na.rm=TRUE),
@@ -89,9 +89,164 @@ lapply(3:ncol(all03), function(i) {
   ans
   
 }) %>%
-  do.call(rbind, .) %>%
-  knitr::kable(digits=2)
+  do.call(rbind, .)
+
+ans <- ans[order(ans$Variance, decreasing = TRUE), ]
+
+ans %>%
+  knitr::kable(digits = 3, row.names = FALSE)
 ```
 
 Of all the measurements shown here, only 6 were defined for all cases. In the case of Anderberg, it might not be the best option because of its negatively correlatedness with most of the measures. Both Jaccard and Hamming, even though popular, show very low variances overall compare to Michael and Hamann, which if you care about heterogeneity in the measurements (this could be a key factor in regression analysis) can be important.
+
+# Well defined statistics for sample size 4
+
+```{r sample-size4, cache = TRUE}
+data("powerset04")
+set.seed(8123)
+dat <- sample(powerset04, 3000, TRUE)
+```
+
+Of the well defined statistics, which can be consider to be the one with the highest variance?
+
+
+```{r correlation-04, cache = TRUE, dependson=-1}
+statistics <- subset(statistics, well_defined == TRUE)
+
+# Computing 
+all_raw03 <- similarity(dat, statistic = unlist(statistics$alias))
+all03 <- all_raw03
+all03[!is.finite(all03)] <- NA
+
+all_cor03 <- all03
+all_cor03[,statistics$distance] <- -all_cor03[,statistics$distance]
+all_cor03 <- cor(all_cor03[,-c(1,2)], use = "pairwise.complete.obs")
+# knitr::kable(all_cor, digits = 2)
+```
+
+```{r correlation-plot-04, out.width="600px", fig.width=6, fig.height=6}
+res <- cbind(a=rownames(all_cor03), as.data.frame(all_cor03))
+res <- lapply(2:ncol(res), function(i) {
+  data.frame(
+    a    = res[,1],
+    b    = colnames(res)[i],
+    corr = res[,i],
+    stringsAsFactors = FALSE
+  )
+  }) %>%
+  do.call("rbind", .)
+
+ggplot(res, aes(x=a, y=b, fill=corr))+
+  scale_fill_distiller(palette = "RdBu") +
+  geom_bin2d() +
+  labs(fill     = "Correlation") +
+  labs(title    = "Correlation between similarity statistics") +
+  labs(subtitle = "(Distance was used as negative)") +
+  theme(
+    axis.text       = element_text(angle = 45, hjust = 1),
+    legend.position = "bottom",
+    axis.title      = element_blank()
+    )
+```
+
+```{r summary-stats-04}
+ans <- lapply(3:ncol(all03), function(i) {
+
+  ans <- data.frame(
+    Statistic = colnames(all03)[i],
+    `% Miss`    = sum(!is.finite(all03[,i]))/length(all03[,i])*100,
+    `Variance`  = var(all03[,i]/diff(range(all03[,i], na.rm = TRUE)), na.rm=TRUE),
+    `Min`       = min(all03[,i], na.rm=TRUE),
+    `Max`       = max(all03[,i], na.rm=TRUE),
+    `p25`       = quantile(all03[,i], .25, na.rm=TRUE),
+    `p75`       = quantile(all03[,i], .75, na.rm=TRUE),
+    check.names = FALSE
+  )
+  
+  ans$IQR <- with(ans, p75 - p25)
+  ans
+  
+}) %>%
+  do.call(rbind, .) 
+
+ans <- ans[order(ans$Variance, decreasing = TRUE), ]
+  
+knitr::kable(ans, digits=3, row.names = FALSE)
+```
+
+# Well defined statistics for sample size 5
+
+```{r sample-size5, cache = TRUE}
+library(ergmito)
+dat <- powerset(5)
+set.seed(8123)
+dat <- sample(dat, 2000, TRUE)
+```
+
+Of the well defined statistics, which can be consider to be the one with the highest variance?
+
+
+```{r correlation-05, cache = TRUE}
+statistics <- subset(statistics, well_defined == TRUE)
+
+# Computing 
+all_raw03 <- similarity(dat, statistic = unlist(statistics$alias))
+all03 <- all_raw03
+all03[!is.finite(all03)] <- NA
+
+all_cor03 <- all03
+all_cor03[,statistics$distance] <- -all_cor03[,statistics$distance]
+all_cor03 <- cor(all_cor03[,-c(1,2)], use = "pairwise.complete.obs")
+# knitr::kable(all_cor, digits = 2)
+```
+
+```{r correlation-plot-05, out.width="600px", fig.width=6, fig.height=6}
+res <- cbind(a=rownames(all_cor03), as.data.frame(all_cor03))
+res <- lapply(2:ncol(res), function(i) {
+  data.frame(
+    a    = res[,1],
+    b    = colnames(res)[i],
+    corr = res[,i],
+    stringsAsFactors = FALSE
+  )
+  }) %>%
+  do.call("rbind", .)
+
+ggplot(res, aes(x=a, y=b, fill=corr))+
+  scale_fill_distiller(palette = "RdBu") +
+  geom_bin2d() +
+  labs(fill     = "Correlation") +
+  labs(title    = "Correlation between similarity statistics") +
+  labs(subtitle = "(Distance was used as negative)") +
+  theme(
+    axis.text       = element_text(angle = 45, hjust = 1),
+    legend.position = "bottom",
+    axis.title      = element_blank()
+    )
+```
+
+```{r summary-stats-05}
+ans <- lapply(3:ncol(all03), function(i) {
+
+  ans <- data.frame(
+    Statistic = colnames(all03)[i],
+    `% Miss`    = sum(!is.finite(all03[,i]))/length(all03[,i])*100,
+    `Variance`  = var(all03[,i]/diff(range(all03[,i], na.rm = TRUE)), na.rm=TRUE),
+    `Min`       = min(all03[,i], na.rm=TRUE),
+    `Max`       = max(all03[,i], na.rm=TRUE),
+    `p25`       = quantile(all03[,i], .25, na.rm=TRUE),
+    `p75`       = quantile(all03[,i], .75, na.rm=TRUE),
+    check.names = FALSE
+  )
+  
+  ans$IQR <- with(ans, p75 - p25)
+  ans
+  
+}) %>%
+  do.call(rbind, .) 
+
+ans <- ans[order(ans$Variance, decreasing = TRUE), ]
+  
+knitr::kable(ans, digits = 3, row.names = FALSE)
+```
 

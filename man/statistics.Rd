@@ -6,7 +6,9 @@
 \title{List of available statistics in \code{similarity}
 The data object \code{statistics} contains a list of the available for
 convenience.}
-\format{A list of two character vectors.}
+\format{
+A list of two character vectors.
+}
 \usage{
 statistics
 }

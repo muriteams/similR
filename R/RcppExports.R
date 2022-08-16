@@ -38,8 +38,8 @@ NULL
 #' @name similarity
 #' @rdname similarity
 #' @section Similarity:
-#' - Sørensen–Dice coefficient (2), Sczekanowsk (3), Nei \& Li (5): `"sdice"` or `"sczekanowsk"` or `"sneili"`
-#' @aliases Sorensen-Dice
+#' - Dice coefficient (2), Sczekanowsk (3), Nei \& Li (5): `"sdice"` or `"sczekanowsk"` or `"sneili"`
+#' @aliases Dice
 NULL
 
 #' @name similarity
@@ -80,7 +80,7 @@ NULL
 #' @name similarity
 #' @rdname similarity
 #' @section Similarity:
-#' - Gower and Legendre (11): `"sgl"` or `"gl"`
+#' - Gower and Legendre (11): `"sgowleg"` or `"gowleg"`
 #' @aliases Gower-&-Legendre
 NULL
 
@@ -108,7 +108,7 @@ NULL
 #' @name similarity
 #' @rdname similarity
 #' @section Distance:
-#' - Shaped Difference (25): `"dsphd"` or `"sphd"`
+#' - Shaped Difference (25): `"dsphdif"` or `"sphdif"`
 #' @aliases Shape-Difference
 NULL
 
@@ -235,7 +235,7 @@ NULL
 #' @name similarity
 #' @rdname similarity
 #' @section Similarity:
-#' -  Goodman & Kruskal (69): `"sgk"` or `"gk"`
+#' -  Goodman & Kruskal (69): `"sgookrus"` or `"gookrus"`
 #'    
 #'    \deqn{%
 #'      S_{Goodman \& Kruskal} = \frac{\sigma - \sigma'}{2n - \sigma'} 
@@ -294,7 +294,7 @@ NULL
 
 #' Contingency Table
 #' @param M1,M2 Two integer matrices of the same size.
-#' @param include_self Logical scalar. When `TRUE` the diagonal is
+#' @param include_diagonal Logical scalar. When `TRUE` the diagonal is
 #' included in the calculation.
 #' @param exclude Integer vector. List of indices to include
 #' during the calculation. For example, if individual 2 needs
@@ -303,15 +303,15 @@ NULL
 #' 
 #' @export
 #' 
-contingency_matrix <- function(M1, M2, include_self, exclude) {
-    .Call(`_similR_contingency_matrix`, M1, M2, include_self, exclude)
+contingency_matrix <- function(M1, M2, include_diagonal, exclude) {
+    .Call(`_similR_contingency_matrix`, M1, M2, include_diagonal, exclude)
 }
 
 reduce_dim <- function(x, k) {
     .Call(`_similR_reduce_dim`, x, k)
 }
 
-.similarity <- function(M, statistic, normalized = FALSE, firstonly = FALSE, include_self = FALSE, exclude_j = FALSE) {
-    .Call(`_similR_similarity`, M, statistic, normalized, firstonly, include_self, exclude_j)
+.similarity <- function(M, statistic, normalized = FALSE, firstonly = FALSE, include_diagonal = FALSE, exclude_j = FALSE) {
+    .Call(`_similR_similarity`, M, statistic, normalized, firstonly, include_diagonal, exclude_j)
 }
 

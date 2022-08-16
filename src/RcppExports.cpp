@@ -19,15 +19,15 @@ BEGIN_RCPP
 END_RCPP
 }
 // contingency_matrix
-IntegerMatrix contingency_matrix(const IntegerMatrix& M1, const IntegerMatrix& M2, bool include_self, const std::vector< int >& exclude);
-RcppExport SEXP _similR_contingency_matrix(SEXP M1SEXP, SEXP M2SEXP, SEXP include_selfSEXP, SEXP excludeSEXP) {
+IntegerMatrix contingency_matrix(const IntegerMatrix& M1, const IntegerMatrix& M2, bool include_diagonal, const std::vector< int >& exclude);
+RcppExport SEXP _similR_contingency_matrix(SEXP M1SEXP, SEXP M2SEXP, SEXP include_diagonalSEXP, SEXP excludeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< const IntegerMatrix& >::type M1(M1SEXP);
     Rcpp::traits::input_parameter< const IntegerMatrix& >::type M2(M2SEXP);
-    Rcpp::traits::input_parameter< bool >::type include_self(include_selfSEXP);
+    Rcpp::traits::input_parameter< bool >::type include_diagonal(include_diagonalSEXP);
     Rcpp::traits::input_parameter< const std::vector< int >& >::type exclude(excludeSEXP);
-    rcpp_result_gen = Rcpp::wrap(contingency_matrix(M1, M2, include_self, exclude));
+    rcpp_result_gen = Rcpp::wrap(contingency_matrix(M1, M2, include_diagonal, exclude));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -43,17 +43,17 @@ BEGIN_RCPP
 END_RCPP
 }
 // similarity
-NumericMatrix similarity(const ListOf<IntegerMatrix>& M, const std::vector< std::string >& statistic, bool normalized, bool firstonly, bool include_self, bool exclude_j);
-RcppExport SEXP _similR_similarity(SEXP MSEXP, SEXP statisticSEXP, SEXP normalizedSEXP, SEXP firstonlySEXP, SEXP include_selfSEXP, SEXP exclude_jSEXP) {
+NumericMatrix similarity(const ListOf<IntegerMatrix>& M, const std::vector< std::string >& statistic, bool normalized, bool firstonly, bool include_diagonal, bool exclude_j);
+RcppExport SEXP _similR_similarity(SEXP MSEXP, SEXP statisticSEXP, SEXP normalizedSEXP, SEXP firstonlySEXP, SEXP include_diagonalSEXP, SEXP exclude_jSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< const ListOf<IntegerMatrix>& >::type M(MSEXP);
     Rcpp::traits::input_parameter< const std::vector< std::string >& >::type statistic(statisticSEXP);
     Rcpp::traits::input_parameter< bool >::type normalized(normalizedSEXP);
     Rcpp::traits::input_parameter< bool >::type firstonly(firstonlySEXP);
-    Rcpp::traits::input_parameter< bool >::type include_self(include_selfSEXP);
+    Rcpp::traits::input_parameter< bool >::type include_diagonal(include_diagonalSEXP);
     Rcpp::traits::input_parameter< bool >::type exclude_j(exclude_jSEXP);
-    rcpp_result_gen = Rcpp::wrap(similarity(M, statistic, normalized, firstonly, include_self, exclude_j));
+    rcpp_result_gen = Rcpp::wrap(similarity(M, statistic, normalized, firstonly, include_diagonal, exclude_j));
     return rcpp_result_gen;
 END_RCPP
 }
